@@ -1,8 +1,8 @@
 # INFO6205_FP
 
 ## Team Formation
-Team Name: ByteBucks Brigade
-Boyuan Ye, Jinmin Zhang, Qianru Cui
+**Team Name**: ByteBucks Brigade  
+**Team Member**: Boyuan Ye, Jinmin Zhang, Qianru Cui
 
 
 ## Project Overview
@@ -16,13 +16,12 @@ Boyuan Ye, Jinmin Zhang, Qianru Cui
 ### Project Statement
 Recent years, everyone can make a payment easily via credit card or electronic payment, this brings a problem that we don't have a clear insight of our budget. 
 It leads to that many individuals are not fully aware of their financial situation or where their money is being spent. Also, understanding overall 
-spending habits and patterns can be difficult without visual aids. 
+spending habits and patterns can be difficult without visual aids.  
+**Target Users**: Individuals who require a straightforward solution to monitor and analyze their personal financial data.
 
 ### Objectives
 The primary objective of FinEasy is to offer a user-friendly tool for individuals seeking a straightforward method to monitor and analyze their financial activities. It aims to empower users with the knowledge and insights needed to make informed financial decisions, encourage savings, and optimize spending patterns.
 
-### Target Users
-Individuals who require a straightforward solution to monitor and analyze their personal financial data.
 
 
 
@@ -34,7 +33,9 @@ Individuals who require a straightforward solution to monitor and analyze their 
 - Lists for transaction management(data storage and access)
 - Sorting for transaction organization (sort the order in different way)
 
-### GUI Design
-
 
 ## Time Plan
+- **Weeks 1**: Project setup in IntelliJ and initial design of the JavaFX GUI.
+- **Weeks 2**: Implementation of core functionalities: adding, editing, and deleting records using Stacks for undo functionality.
+- **Weeks 3**: Incorporation of Lists for transaction management and data storage; implementation of Sorting for transaction organization.
+- **Week 4**: Finalization of GUI components and starting integration testing.
