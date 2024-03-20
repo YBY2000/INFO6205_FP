@@ -2,7 +2,7 @@
 
 ## Team Formation
 **Team Name**: ByteBucks Brigade  
-**Team Member**: Boyuan Ye, Jinmin Zhang, Qianru Cui
+**Team Member**: Boyuan Ye, Jinming Zhang, Qianru Cui
 
 
 
@@ -35,8 +35,9 @@ The primary objective of FinEasy is to offer a user-friendly tool for individual
 - Use Binary Search Tree to optimize the functionality of search record and sorting
 
 #### Prototype
-
+We have 3 pages for our system, main page, add record page and the data visualization page which is shown below.
 ![Main Page](./resources/p1_main.png "Main Page"){:height="30%" width="30%"}  ![Add Record](./resources/p2_add.png "Add Record"){:height="30%" width="30%"}  ![Vitualization](./resources/p3_Vitualization.png "Vitualization"){:height="30%" width="30%"}
 
 ## Time Plan
+The Gantt Chart shows our time plan for this project, every small goals will be divided into different parts and assigned to one of the members. We didn’t assign any works on weekends for now, but the specific implementation time will be slightly different based on the actual development progress.
 ![Gantt Chart](./resources/Gantt_chart.png "Gantt Chart")
