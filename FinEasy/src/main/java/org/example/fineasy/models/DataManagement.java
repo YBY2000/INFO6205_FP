@@ -2,6 +2,8 @@ package org.example.fineasy.models;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableView;
 import org.example.fineasy.exception.TransactionNotFoundException;
 
 import java.util.ArrayList;
@@ -12,12 +14,18 @@ public class DataManagement {
     private List<Transaction> transactions;
     private Stack<Runnable> undoStack;
     private BinarySearchTree bst; // Binary Search实例
+    @FXML
+    private TableView<Transaction> transactionTable;
 
     //添加数据监听和获取功能
     private final ObservableList<Transaction> transactionsObservable = FXCollections.observableArrayList();
 
     public ObservableList<Transaction> getTransactionsObservable() {
         return transactionsObservable;
+    }
+
+    public void updateTransactionsView() {
+        transactionTable.setItems(DataManagementSingleton.getInstance().getTransactionsObservable());
     }
 
 
@@ -29,12 +37,14 @@ public class DataManagement {
 
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
-        bst.insert(transaction); // 将交易记录插入BST
+        transactionsObservable.add(transaction); // Add to observable list
+        bst.insert(transaction); // Insert into BST
         undoStack.push(() -> {
             transactions.remove(transaction);
-            // 注意：这里省略了从BST中删除节点的操作
+            transactionsObservable.remove(transaction); // Remove from observable list
         });
     }
+
 
     public void deleteTransaction(String transactionId) throws TransactionNotFoundException {
         Transaction transaction = findTransactionById(transactionId);

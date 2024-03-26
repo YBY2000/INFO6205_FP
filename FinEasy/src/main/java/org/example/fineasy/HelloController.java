@@ -44,19 +44,23 @@ public class HelloController {
     private TableColumn<Transaction, String> idColumn;
 
     //MainView Form initial
-    @FXML
     public void initialize() {
-        // Set up the columns in the table
+        // Setup column bindings
+        setupColumnBindings();
+
+        // Bind TableView to observable list
+        updateTransactionsView();
+    }
+
+    private void setupColumnBindings() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
         commentColumn.setCellValueFactory(new PropertyValueFactory<>("comment"));
-
-        // Load and display transactions
-        updateTransactionsView();
     }
+
 
     public void updateTransactionsView() {
         transactionTable.setItems(DataManagementSingleton.getInstance().getTransactionsObservable());
