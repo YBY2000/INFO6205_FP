@@ -48,17 +48,26 @@ public class DataManagement {
     }
 
 
+//    public void deleteTransaction(String transactionId) throws TransactionNotFoundException {
+//        Transaction transaction = searchTransactionById(transactionId);
+//        if (transaction == null) {
+//            throw new TransactionNotFoundException("Transaction with ID " + transactionId + " not found.");
+//        }
+//        transactions.remove(transaction);
+//        // TODO: operation_type写成enum, 1:add, 2: delete, 3:edit, 4:reorder
+//        undoStack.push(new OperationRecord(2, transaction));
+////        undoStack.push(() -> transactions.add(transaction));
+//        // 注意：在实际应用中，你可能还需要处理BST中的删除
+//    }
     public void deleteTransaction(String transactionId) throws TransactionNotFoundException {
-        Transaction transaction = findTransactionById(transactionId);
-        if (transaction == null) {
+        // This is a simplified example. You need to implement the logic to find and remove the transaction
+        // by its ID from your storage mechanism, whether it's an in-memory list, a database, etc.
+        boolean removed = transactionsObservable.removeIf(transaction -> transaction.getId().equals(transactionId));
+        if (!removed) {
             throw new TransactionNotFoundException("Transaction with ID " + transactionId + " not found.");
         }
-        transactions.remove(transaction);
-        // TODO: operation_type写成enum, 1:add, 2: delete, 3:edit, 4:reorder
-        undoStack.push(new OperationRecord(2, transaction));
-//        undoStack.push(() -> transactions.add(transaction));
-        // 注意：在实际应用中，你可能还需要处理BST中的删除
     }
+
 
 //    public void modifyTransaction(String transactionId, Transaction newTransactionData) throws TransactionNotFoundException {
 //        boolean found = false;
@@ -90,13 +99,13 @@ public class DataManagement {
 //        }
 //    }
 
-    private Transaction findTransactionById(String id) {
-        // TODO:
+//    private Transaction findTransactionById(String id) {
+//        // TODO:
 //        return transactions.stream()
 //                .filter(transaction -> transaction.getId().equals(id))
 //                .findFirst()
 //                .orElse(null);
-    }
+//    }
 
 
     // 打印所有交易记录，方便调试
@@ -105,15 +114,15 @@ public class DataManagement {
 //    }
 
     // 使用BST进行搜索
-    public Transaction searchTransactionById(String id) {
-        return bst.search(id);
-    }
+//    public Transaction searchTransactionById(String id) {
+//        return bst.search(id);
+//    }
+
 
 //    public void sortTransactionsByDate() {
 //        DateSortingStrategy sortingStrategy = new DateSortingStrategy();
 //        sortingStrategy.sort(transactions);
 //    }
-
 }
 
 //添加交易记录: 调用 addTransaction(Transaction transaction) 方法，它将交易记录添加到列表和BST中。

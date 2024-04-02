@@ -1,5 +1,6 @@
 package org.example.fineasy.controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import org.example.fineasy.controllers.AddController;
+import org.example.fineasy.exception.TransactionNotFoundException;
 import org.example.fineasy.models.DataManagementSingleton;
 import org.example.fineasy.models.Transaction;
 
@@ -84,12 +86,7 @@ public class HelloController {
 
 
     public void handleUndoButtonClick() {
-//        try {
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            // 处理加载视图失败的情况
-//        }
+
     }
 
     public void handleVisualizationButtonClick() {
@@ -112,8 +109,19 @@ public class HelloController {
         }
     }
 
-
-
+    @FXML
+    public void handleDeleteButtonClick() throws TransactionNotFoundException {
+        Transaction selectedTransaction = transactionTable.getSelectionModel().getSelectedItem();
+        if (selectedTransaction != null) {
+            String transactionId = selectedTransaction.getId();
+            // Assuming DataManagementSingleton has a deleteTransaction method that takes an ID as a string
+            DataManagementSingleton.getInstance().deleteTransaction(transactionId);
+            updateTransactionsView(); // Refresh the table view to reflect the deletion
+        } else {
+            // Optionally, show an alert or notification that no row is selected
+            System.out.println("No transaction selected for deletion.");
+        }
+    }
 
 }
 
