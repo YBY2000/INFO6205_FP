@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import org.example.fineasy.controllers.AddController;
 import org.example.fineasy.exception.TransactionNotFoundException;
 import org.example.fineasy.models.DataManagementSingleton;
+import org.example.fineasy.models.OperationRecord;
 import org.example.fineasy.models.Transaction;
 
 import java.io.IOException;
@@ -84,10 +85,7 @@ public class HelloController {
         }
     }
 
-
-    public void handleUndoButtonClick() {
-
-    }
+    
 
     public void handleVisualizationButtonClick() {
         try {
@@ -122,6 +120,18 @@ public class HelloController {
             System.out.println("No transaction selected for deletion.");
         }
     }
+
+    @FXML
+    public void handleUndoButtonClick() {
+        try {
+            DataManagementSingleton.getInstance().undoLastAction();
+            updateTransactionsView(); // Refresh the table view to show the current state of transactions
+        } catch (TransactionNotFoundException e) {
+            // Log the error or notify the user if necessary
+            e.printStackTrace();
+        }
+    }
+
 
 }
 

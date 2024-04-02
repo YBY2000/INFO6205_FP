@@ -1,30 +1,25 @@
 package org.example.fineasy.models;
 
 public class OperationRecord {
+    public enum OperationType {
+        ADD, DELETE, EDIT
+    }
 
-    private int operationType;
-    private Transaction transaction;
+    private final OperationType operationType;
+    private final Transaction transaction;
 
-    OperationRecord(int operation_type, Transaction transaction){
-        this.operationType = operation_type;
+    public OperationRecord(OperationType operationType, Transaction transaction) {
+        this.operationType = operationType;
         this.transaction = transaction;
     }
-    public int getOperationType() {
+
+    // Getters
+    public OperationType getOperationType() {
         return operationType;
-    }
-
-
-    public void setOperationType(int operationType) {
-        this.operationType = operationType;
     }
 
     public Transaction getTransaction() {
         return transaction;
     }
-
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
-    }
-
-
 }
+

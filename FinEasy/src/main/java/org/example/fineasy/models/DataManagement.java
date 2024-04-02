@@ -44,7 +44,7 @@ public class DataManagement {
 //            transactionsObservable.remove(transaction); // Remove from observable list
 //        });
         // TODO: operation_type写成enum, 1:add, 2: delete, 3:edit, 4:reorder
-        undoStack.push(new OperationRecord(1, transaction));
+        undoStack.push(new OperationRecord(OperationRecord.OperationType.ADD, transaction));
     }
 
 
@@ -59,12 +59,43 @@ public class DataManagement {
 ////        undoStack.push(() -> transactions.add(transaction));
 //        // 注意：在实际应用中，你可能还需要处理BST中的删除
 //    }
-    public void deleteTransaction(String transactionId) throws TransactionNotFoundException {
-        // This is a simplified example. You need to implement the logic to find and remove the transaction
-        // by its ID from your storage mechanism, whether it's an in-memory list, a database, etc.
-        boolean removed = transactionsObservable.removeIf(transaction -> transaction.getId().equals(transactionId));
-        if (!removed) {
-            throw new TransactionNotFoundException("Transaction with ID " + transactionId + " not found.");
+public void deleteTransaction(String transactionId) throws TransactionNotFoundException {
+    Transaction transactionToDelete = null;
+    for (Transaction transaction : transactionsObservable) {
+        if (transaction.getId().equals(transactionId)) {
+            transactionToDelete = transaction;
+            break;
+        }
+    }
+    if (transactionToDelete != null) {
+        transactionsObservable.remove(transactionToDelete);
+        // Push an undo operation for deletion
+        undoStack.push(new OperationRecord(OperationRecord.OperationType.DELETE, transactionToDelete));
+    } else {
+        throw new TransactionNotFoundException("Transaction with ID " + transactionId + " not found.");
+    }
+}
+
+    public void undoLastAction() throws TransactionNotFoundException {
+        if (!undoStack.isEmpty()) {
+            OperationRecord lastOperation = undoStack.pop();
+            switch (lastOperation.getOperationType()) {
+                case ADD:
+                    // Undo the addition by removing the transaction
+                    transactions.remove(lastOperation.getTransaction());
+                    transactionsObservable.remove(lastOperation.getTransaction());
+                    // Optionally, handle BST removal here
+                    break;
+                case DELETE:
+                    // Undo the deletion by re-adding the transaction
+                    transactions.add(lastOperation.getTransaction());
+                    transactionsObservable.add(lastOperation.getTransaction());
+                    // Optionally, re-insert into BST here
+                    break;
+                case EDIT:
+                    // Undo editing (requires storing previous state in OperationRecord)
+                    break;
+            }
         }
     }
 
