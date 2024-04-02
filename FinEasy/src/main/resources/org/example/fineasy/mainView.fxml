@@ -44,7 +44,7 @@
             </columns>
         </TableView>
         <Button fx:id="addButton" onAction="#handleAddButtonClick" style="-fx-background-color: orange; -fx-border-color: black;" styleClass="floating-action-button" text="Add" />
-        <Button fx:id="UndoButton"  style="-fx-background-color: orange; -fx-border-color: black;" styleClass="floating-action-button" text="Undo" />
+        <Button fx:id="UndoButton" onAction="#handleUndoButtonClick" style="-fx-background-color: orange; -fx-border-color: black;" styleClass="floating-action-button" text="Undo" />
         <Button fx:id="deleteButton"  style="-fx-background-color: orange; -fx-border-color: black;" styleClass="floating-action-button" text="Delete" />
     </children>
 </VBox>

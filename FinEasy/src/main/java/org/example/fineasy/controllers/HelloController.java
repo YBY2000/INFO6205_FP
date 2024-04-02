@@ -65,6 +65,7 @@ public class HelloController {
     public void updateTransactionsView() {
         transactionTable.setItems(DataManagementSingleton.getInstance().getTransactionsObservable());
     }
+
     @FXML
     public void handleAddButtonClick() {
         try {
@@ -79,6 +80,16 @@ public class HelloController {
             e.printStackTrace();
             // 处理加载视图失败的情况
         }
+    }
+
+
+    public void handleUndoButtonClick() {
+//        try {
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            // 处理加载视图失败的情况
+//        }
     }
 
     public void handleVisualizationButtonClick() {

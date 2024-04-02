@@ -26,8 +26,6 @@ public class AddController {
 
     @FXML
     private TextField textAmount; // 假设你有这个输入字段
-    @FXML
-    private TextField textCategory; // 假设你有这个输入字段
 
     @FXML private ToggleButton toggleFood;
     @FXML private ToggleButton toggleEducation;
@@ -52,7 +50,7 @@ public class AddController {
     private void handleSaveAction(ActionEvent event) {
         try {
             String id = generateTransactionId();
-            String type = choiceType.getValue();
+            String type = choiceType.getValue();    //TODO: 把type写成enum
             double amount = Double.parseDouble(textAmount.getText().trim()); // trim() to remove leading/trailing spaces
             LocalDate date = datePicker.getValue();
 

@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Stack;
 
 public class DataManagement {
-    private List<Transaction> transactions;
-    private Stack<Runnable> undoStack;
+    private LinkedBag<Transaction> transactions;
+    private UndoStack<OperationRecord> undoStack;
     private BinarySearchTree bst; // Binary Search实例
     @FXML
     private TableView<Transaction> transactionTable;
@@ -30,8 +30,8 @@ public class DataManagement {
 
 
     public DataManagement() {
-        this.transactions = new ArrayList<>();
-        this.undoStack = new Stack<>();
+        this.transactions = new LinkedBag<>();
+        this.undoStack = new UndoStack<>();
         this.bst = new BinarySearchTree(); // 初始化BST
     }
 
@@ -39,10 +39,12 @@ public class DataManagement {
         transactions.add(transaction);
         transactionsObservable.add(transaction); // Add to observable list
         bst.insert(transaction); // Insert into BST
-        undoStack.push(() -> {
-            transactions.remove(transaction);
-            transactionsObservable.remove(transaction); // Remove from observable list
-        });
+//        undoStack.push(() -> {
+//            transactions.remove(transaction);
+//            transactionsObservable.remove(transaction); // Remove from observable list
+//        });
+        // TODO: operation_type写成enum, 1:add, 2: delete, 3:edit, 4:reorder
+        undoStack.push(new OperationRecord(1, transaction));
     }
 
 
@@ -52,62 +54,65 @@ public class DataManagement {
             throw new TransactionNotFoundException("Transaction with ID " + transactionId + " not found.");
         }
         transactions.remove(transaction);
-        undoStack.push(() -> transactions.add(transaction));
+        // TODO: operation_type写成enum, 1:add, 2: delete, 3:edit, 4:reorder
+        undoStack.push(new OperationRecord(2, transaction));
+//        undoStack.push(() -> transactions.add(transaction));
         // 注意：在实际应用中，你可能还需要处理BST中的删除
     }
 
-    public void modifyTransaction(String transactionId, Transaction newTransactionData) throws TransactionNotFoundException {
-        boolean found = false;
-        for (int i = 0; i < transactions.size(); i++) {
-            if (transactions.get(i).getId().equals(transactionId)) {
-                found = true;
-                Transaction oldTransaction = transactions.get(i);
-                bst.delete(oldTransaction); // 先删除旧节点
-                bst.insert(newTransactionData); // 再插入新节点
-                transactions.set(i, newTransactionData);
-                undoStack.push(() -> {
-                    transactions.set(transactions.indexOf(newTransactionData), oldTransaction);
-                    bst.delete(newTransactionData); // 撤销时也要维护BST的一致性
-                    bst.insert(oldTransaction);
-                });
-                break;
-            }
-        }
-        if (!found) {
-            throw new TransactionNotFoundException("Transaction with ID " + transactionId + " not found.");
-        }
-    }
+//    public void modifyTransaction(String transactionId, Transaction newTransactionData) throws TransactionNotFoundException {
+//        boolean found = false;
+//        for (int i = 0; i < transactions.size(); i++) {
+//            if (transactions.get(i).getId().equals(transactionId)) {
+//                found = true;
+//                Transaction oldTransaction = transactions.get(i);
+//                bst.delete(oldTransaction); // 先删除旧节点
+//                bst.insert(newTransactionData); // 再插入新节点
+//                transactions.set(i, newTransactionData);
+//                undoStack.push(() -> {
+//                    transactions.set(transactions.indexOf(newTransactionData), oldTransaction);
+//                    bst.delete(newTransactionData); // 撤销时也要维护BST的一致性
+//                    bst.insert(oldTransaction);
+//                });
+//                break;
+//            }
+//        }
+//        if (!found) {
+//            throw new TransactionNotFoundException("Transaction with ID " + transactionId + " not found.");
+//        }
+//    }
 
 
 
-    public void undoLastAction() {
-        if (!undoStack.isEmpty()) {
-            undoStack.pop().run();
-        }
-    }
+//    public void undoLastAction() {
+//        if (!undoStack.isEmpty()) {
+//            undoStack.pop().run();
+//        }
+//    }
 
-    private Transaction findTransactionById(String id) {
-        return transactions.stream()
-                .filter(transaction -> transaction.getId().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
+//    private Transaction findTransactionById(String id) {
+//        // TODO:
+//        return transactions.stream()
+//                .filter(transaction -> transaction.getId().equals(id))
+//                .findFirst()
+//                .orElse(null);
+//    }
 
 
     // 打印所有交易记录，方便调试
-    public void printTransactions() {
-        transactions.forEach(System.out::println);
-    }
+//    public void printTransactions() {
+//        transactions.forEach(System.out::println);
+//    }
 
     // 使用BST进行搜索
     public Transaction searchTransactionById(String id) {
         return bst.search(id);
     }
 
-    public void sortTransactionsByDate() {
-        DateSortingStrategy sortingStrategy = new DateSortingStrategy();
-        sortingStrategy.sort(transactions);
-    }
+//    public void sortTransactionsByDate() {
+//        DateSortingStrategy sortingStrategy = new DateSortingStrategy();
+//        sortingStrategy.sort(transactions);
+//    }
 
 }
 
