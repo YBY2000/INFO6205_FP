@@ -13,6 +13,33 @@ public final class LinkedBag<T> implements BagInterface<T>
     private Node firstNode;       // Reference to first node
     private int numberOfEntries;
 
+    private class Node
+    {
+        private T    data; // Entry in bag
+        private Node next; // Link to next node
+
+        private Node(T dataPortion)
+        {
+            this(dataPortion, null);
+        } // end constructor
+
+        private Node(T dataPortion, Node nextNode)
+        {
+            data = dataPortion;
+            next = nextNode;
+        } // end constructor
+
+        private T getData()
+        {
+            return data;
+        } // end getData
+
+        private void setData(T newData)
+        {
+            data = newData;
+        } // end setData
+    } // end Node
+
     public LinkedBag()
     {
         firstNode = null;
@@ -86,7 +113,6 @@ public final class LinkedBag<T> implements BagInterface<T>
             numberOfEntries--;
         } // end if
 
-
         return result;
     } // end remove
 
@@ -94,20 +120,18 @@ public final class LinkedBag<T> implements BagInterface<T>
     /** Removes one occurrence of a given entry from this bag.
      @param anEntry  The entry to be removed.
      @return  True if the removal was successful, or false otherwise. */
-    public boolean remove(T anEntry) {
-        boolean result = false;
-
+    public T remove(T anEntry) {
+        T result = null;
         Node nodeN = getReferenceTo(anEntry);
         if (nodeN != null) {
+            result = nodeN.data;
             nodeN.data = firstNode.data; // Replace located entry with entry in first node
             firstNode = firstNode.next;  // Remove first node
             numberOfEntries--;
-            result = true;
         } // end if
 
         return result;
     } // end remove
-
 
     // Locates a given entry within this bag.
     // Returns a reference to the node containing the entry, if located,
@@ -165,32 +189,6 @@ public final class LinkedBag<T> implements BagInterface<T>
         return found;
     } // end contains
 
-    private class Node
-    {
-        private T    data; // Entry in bag
-        private Node next; // Link to next node
-
-        private Node(T dataPortion)
-        {
-            this(dataPortion, null);
-        } // end constructor
-
-        private Node(T dataPortion, Node nextNode)
-        {
-            data = dataPortion;
-            next = nextNode;
-        } // end constructor
-
-        private T getData()
-        {
-            return data;
-        } // end getData
-
-        private void setData(T newData)
-        {
-            data = newData;
-        } // end setData
-    } // end Node
 
     /** Check to see if two bags are equals.
      * @param aBag Another object to check this bag against.
@@ -227,5 +225,4 @@ public final class LinkedBag<T> implements BagInterface<T>
     }  // end removeDuplicates
 
 } // end LinkedBag
-
 

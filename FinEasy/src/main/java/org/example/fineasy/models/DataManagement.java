@@ -90,13 +90,13 @@ public class DataManagement {
 //        }
 //    }
 
-//    private Transaction findTransactionById(String id) {
-//        // TODO:
+    private Transaction findTransactionById(String id) {
+        // TODO:
 //        return transactions.stream()
 //                .filter(transaction -> transaction.getId().equals(id))
 //                .findFirst()
 //                .orElse(null);
-//    }
+    }
 
 
     // 打印所有交易记录，方便调试
