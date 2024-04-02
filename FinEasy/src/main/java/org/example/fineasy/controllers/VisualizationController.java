@@ -1,6 +1,5 @@
 package org.example.fineasy.controllers;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,9 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.chart.PieChart.Data;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import org.example.fineasy.HelloController;
-import org.example.fineasy.models.DataManagementSingleton;
-import org.example.fineasy.models.Transaction;
 
 import java.io.IOException;
 

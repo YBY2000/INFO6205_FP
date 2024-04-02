@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 
-<VBox fx:id="mainView" alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.fineasy.HelloController">
+<VBox fx:id="mainView" alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.fineasy.controllers.HelloController">
   <padding>
     <Insets bottom="40.0" left="100.0" right="100.0" top="40.0" />
   </padding>
