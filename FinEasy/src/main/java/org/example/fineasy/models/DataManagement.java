@@ -6,6 +6,8 @@ import javafx.scene.control.Alert;
 import org.example.fineasy.Utils.ShowDialog;
 import org.example.fineasy.Utils.TransactionNotFoundException;
 
+import java.time.LocalDate;
+
 import static org.example.fineasy.entity.OperationType.ADD;
 import static org.example.fineasy.entity.OperationType.DELETE;
 
@@ -43,6 +45,22 @@ public class DataManagement {
 
 
     /**
+     * Adds 10 sample transactions for testing or demonstration purposes.
+     */
+    public void addSampleTransactions() {
+        addTransaction(new Transaction("1", "Expense", 50.0, LocalDate.now(), "Food", "Lunch with friends"));
+        addTransaction(new Transaction("2", "Income", 1500.0, LocalDate.now(), "Salary", "Monthly salary"));
+        addTransaction(new Transaction("3", "Expense", 300.0, LocalDate.now(), "Electronics", "New headphones"));
+        addTransaction(new Transaction("4", "Expense", 120.0, LocalDate.now(), "Groceries", "Weekly groceries"));
+        addTransaction(new Transaction("5", "Income", 200.0, LocalDate.now(), "Freelance", "Freelance project"));
+        addTransaction(new Transaction("6", "Expense", 60.0, LocalDate.now(), "Entertainment", "Cinema tickets"));
+        addTransaction(new Transaction("7", "Expense", 400.0, LocalDate.now(), "Travel", "Weekend trip"));
+        addTransaction(new Transaction("8", "Income", 250.0, LocalDate.now(), "Gift", "Birthday money"));
+        addTransaction(new Transaction("9", "Expense", 100.0, LocalDate.now(), "Health", "Pharmacy"));
+        addTransaction(new Transaction("10", "Expense", 90.0, LocalDate.now(), "Books", "Programming books"));
+    }
+
+    /**
      * Returns an observable list of transactions for UI binding.
      * @return ObservableList of Transaction objects.
      */
@@ -63,6 +81,7 @@ public class DataManagement {
         transactionsObservable.add(transaction);
         bst.insert(transaction);
         undoStack.push(new OperationRecord(ADD, transaction));
+//        printTransactions();
     } // end addTransaction
 
 
@@ -116,17 +135,6 @@ public class DataManagement {
             throw new TransactionNotFoundException(errMsg);
         } // end if(!undoStack.isEmpty()) - else
     } // end undoLastAction
-
-
-    /**
-     * Print all transactions
-     * this method is used for testing of system
-     */
-    public void printTransactions() {
-        for (Transaction transaction : transactionList) {
-            System.out.println(transaction);
-        }
-    } // end printTransactions
 
 
     // use BST to search

@@ -46,7 +46,7 @@
             <Button fx:id="btnSave" onAction="#handleSaveAction"
                     style="-fx-background-color: orange; -fx-border-color: black; -fx-pref-width: 100px;"
                     text="SAVE"/>
-            <Button fx:id="btnCancel" onAction="#handleCancelAction"
+            <Button fx:id="btnCancel" onAction="#navigateToMainView"
                     style="-fx-background-color: lightgrey; -fx-border-color: black; -fx-pref-width: 100px;"
                     text="CANCEL"/>
         </HBox>

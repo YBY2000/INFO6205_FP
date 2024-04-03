@@ -15,6 +15,8 @@ import org.example.fineasy.models.Transaction;
 import java.io.IOException;
 import java.time.LocalDate;
 
+import static org.example.fineasy.Utils.LoadNewScene.loadScene;
+
 /**
  * The controller for the add transaction page
  * include type selection, fill in amount, comment, date pick
@@ -63,18 +65,9 @@ public class AddController {
             String id = generateTransactionId();
             String type = choiceType.getValue();
             double amount = Double.parseDouble(textAmount.getText().trim()); // trim() to remove leading/trailing spaces
-            LocalDate date = datePicker.getValue();
-
-            // Determine the selected category from ToggleButtons
-            ToggleButton selectedCategory = (ToggleButton) categoryToggleGroup.getSelectedToggle();
-            String category = selectedCategory != null ? selectedCategory.getText() : "None"; // "None" or similar default
-
-            String comment = textComment.getText().trim(); // trim() here as well
-
-            Transaction transaction = new Transaction(id, type, amount, date, category, comment);
+            Transaction transaction = getTransaction(id, type, amount);
             DataManagement.getInstance().addTransaction(transaction);
 
-            System.out.println("Transaction saved successfully.");
             navigateToMainView(event);
         } catch (Exception e) {
             // Broader exception handling
@@ -82,55 +75,29 @@ public class AddController {
         }
     }
 
-    private void navigateToMainView(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fineasy/mainView.fxml"));
-            Parent mainViewRoot = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    /**
+     * The method to get the data of transaction that user input
+     *
+     * @param id The id of the transaction that user input
+     * @param type The type of the transaction that user input
+     * @param amount The amount of the transaction that user input
+     * @return The Transaction Object to be stored
+     */
+    private Transaction getTransaction(String id, String type, double amount) {
+        LocalDate date = datePicker.getValue();
 
-            // Set the scene with the specific width and height to reset its size
-            Scene mainViewScene = new Scene(mainViewRoot, 800, 800);
-            stage.setScene(mainViewScene);
+        // Determine the selected category from ToggleButtons
+        ToggleButton selectedCategory = (ToggleButton) categoryToggleGroup.getSelectedToggle();
+        String category = selectedCategory != null ? selectedCategory.getText() : "None"; // "None" or similar default
 
-            HelloController helloController = loader.getController();
-            if (helloController != null) {
-                helloController.updateTransactionsView();
-            }
+        String comment = textComment.getText().trim(); // trim() here as well
 
-            stage.show();
-        } catch (IOException e) {
-            ShowDialog.showAlert("Error", "Error navigating to the main view: " + e.getMessage(), Alert.AlertType.ERROR);
-        }
+        return new Transaction(id, type, amount, date, category, comment);
     }
 
-
-
-
     @FXML
-    private void handleCancelAction(ActionEvent event) {
-        try {
-            // Load the MainView FXML file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fineasy/mainView.fxml"));
-            Parent mainViewRoot = loader.load();
-
-            // Get the current window (Stage) and set the new scene (Scene)
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-            // Set the scene with specific width and height to reset its size
-            Scene mainViewScene = new Scene(mainViewRoot, 800, 800);
-            stage.setScene(mainViewScene);
-
-            // Optionally, if there is any need to perform actions on the controller of MainView
-            HelloController controller = loader.getController();
-            if (controller != null) {
-                controller.updateTransactionsView(); // This line is optional depending on your needs
-            }
-
-            // Show the stage with MainView
-            stage.show();
-        } catch (IOException e) {
-            ShowDialog.showAlert("Error", "Error navigating to the main view: " + e.getMessage(), Alert.AlertType.ERROR);
-        }
+    private void navigateToMainView(ActionEvent event) {
+        loadScene("/org/example/fineasy/mainView.fxml", btnSave);
     }
 
 
@@ -139,8 +106,12 @@ public class AddController {
         stage.close();
     }
 
+    /**
+     * The automatic ID generator for transaction, based on timestamp
+     *
+     * @return The generated id
+     */
     private String generateTransactionId() {
-        // 实现ID生成逻辑，例如基于时间戳或其他
         return String.valueOf(System.currentTimeMillis());
     }
 }

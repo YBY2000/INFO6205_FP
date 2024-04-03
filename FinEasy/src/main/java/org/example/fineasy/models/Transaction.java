@@ -101,7 +101,8 @@ public class Transaction{
     public String toString() {
         return String.format("Transaction{id='%s', type='%s', amount=%.2f, date='%s', category='%s', comment='%s'}",
                 id, type, amount, date, category, comment);
-    }
-}
+    } // end toString
+
+} // class Transaction
 
 

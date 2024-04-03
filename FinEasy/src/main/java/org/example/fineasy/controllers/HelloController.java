@@ -48,6 +48,7 @@ public class HelloController {
 
         // Bind TableView to observable list
         updateTransactionsView();
+        DataManagement.getInstance().addSampleTransactions();
     } // end initialize
 
 
@@ -107,10 +108,10 @@ public class HelloController {
                     ShowDialog.showAlert("Error", "Transaction not found: " + e.getMessage(), Alert.AlertType.ERROR);
                 }
                 updateTransactionsView();
-            }
+            } // end if (confirmed)
         } else {
             ShowDialog.showAlert("Warning", "No transaction selected for deletion.", Alert.AlertType.WARNING);
-        }
+        } // end if (selectedTransaction != null) - else
     } // end handleDeleteButtonClick
 
 
@@ -121,12 +122,17 @@ public class HelloController {
      */
     @FXML
     public void handleUndoButtonClick() {
-        try {
-            DataManagement.getInstance().undoLastAction();
+        boolean confirmed = ShowDialog.showConfirmationDialog("Confirm Undo", "Are you sure you want to undo the latest operation?");
+        if (confirmed) {
+            try {
+                DataManagement.getInstance().undoLastAction();
+                updateTransactionsView();
+            } catch (TransactionNotFoundException e) {
+                ShowDialog.showAlert("Error", "Unable to undo the last action: " + e.getMessage(), Alert.AlertType.ERROR);
+            } // end try-catch
             updateTransactionsView();
-        } catch (TransactionNotFoundException e) {
-            ShowDialog.showAlert("Error", "Unable to undo the last action: " + e.getMessage(), Alert.AlertType.ERROR);
-        }
+        } // end if (confirmed)
+
     } // end handleUndoButtonClick
 
 } // end HelloController
