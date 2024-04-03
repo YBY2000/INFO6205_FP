@@ -154,34 +154,33 @@ public class HelloController {
 
     } // end handleUndoButtonClick
 
-    // 方法位于HelloController类中
     private void sortTransactions(String criterion) {
-        // Step 1: 转换ObservableList到LinkedBag
+        // Step 1: Transform ObservableList to LinkedBag
         LinkedBag<Transaction> linkedBag = new LinkedBag<>();
         for (Transaction transaction : transactionTable.getItems()) {
             linkedBag.add(transaction);
         }
 
-        // Step 2: 定义Comparator
+        // Step 2: Define Comparator
         Comparator<Transaction> comparator = getTransactionComparator(criterion);
 
-        // Step 3: 使用LinkedBag的sort方法进行排序
+        // Step 3: use sort method in LinkedBag
         if (comparator != null) {
             linkedBag.sort(comparator);
         }
 
-        // Step 4: 将LinkedBag转换回ObservableList
+        // Step 4: Transform LinkedBag back to ObservableList
         ObservableList<Transaction> sortedList = FXCollections.observableArrayList();
         for (Transaction transaction : linkedBag) {
             sortedList.add(transaction);
         }
 
-        // Step 5: 更新TableView
+        // Step 5: update TableView
         transactionTable.setItems(sortedList);
         transactionTable.refresh();
     }
 
-    // 辅助方法：根据排序标准返回相应的Comparator
+    //Returns the corresponding Comparator according to the sorting criteria
     private Comparator<Transaction> getTransactionComparator(String criterion) {
         switch (criterion) {
             case "Amount":
