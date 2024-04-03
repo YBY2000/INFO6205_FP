@@ -8,14 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.fineasy.Utils.ShowDialog;
+import org.example.fineasy.utils.ShowDialog;
 import org.example.fineasy.models.DataManagement;
 import org.example.fineasy.models.Transaction;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
-import static org.example.fineasy.Utils.LoadNewScene.loadScene;
+import static org.example.fineasy.utils.LoadNewScene.loadScene;
 
 /**
  * The controller for the add transaction page

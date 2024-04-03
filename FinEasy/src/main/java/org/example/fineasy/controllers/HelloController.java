@@ -3,14 +3,14 @@ package org.example.fineasy.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.example.fineasy.Utils.ShowDialog;
-import org.example.fineasy.Utils.TransactionNotFoundException;
+import org.example.fineasy.utils.ShowDialog;
+import org.example.fineasy.utils.TransactionNotFoundException;
 import org.example.fineasy.models.DataManagement;
 import org.example.fineasy.models.Transaction;
 
 import java.time.LocalDate;
 
-import static org.example.fineasy.Utils.LoadNewScene.loadScene;
+import static org.example.fineasy.utils.LoadNewScene.loadScene;
 
 /**
  * The controller for the main page
@@ -97,16 +97,12 @@ public class HelloController {
      * throws exception when no row selected or transaction not found
      */
     @FXML
-    public void handleDeleteButtonClick() {
+    public void handleDeleteButtonClick() throws TransactionNotFoundException {
         Transaction selectedTransaction = transactionTable.getSelectionModel().getSelectedItem();
         if (selectedTransaction != null) {
             boolean confirmed = ShowDialog.showConfirmationDialog("Confirm Delete", "Are you sure you want to delete this transaction?");
             if (confirmed) {
-                try {
-                    DataManagement.getInstance().deleteTransaction(selectedTransaction.getId());
-                } catch (TransactionNotFoundException e){
-                    ShowDialog.showAlert("Error", "Transaction not found: " + e.getMessage(), Alert.AlertType.ERROR);
-                }
+                DataManagement.getInstance().deleteTransaction(selectedTransaction.getId());
                 updateTransactionsView();
             } // end if (confirmed)
         } else {

@@ -7,8 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static org.example.fineasy.Utils.AppConstants.PREF_HEIGHT;
-import static org.example.fineasy.Utils.AppConstants.PREF_WIDTH;
+import static org.example.fineasy.utils.AppConstants.PREF_HEIGHT;
+import static org.example.fineasy.utils.AppConstants.PREF_WIDTH;
 
 /**
  * The launcher of the project

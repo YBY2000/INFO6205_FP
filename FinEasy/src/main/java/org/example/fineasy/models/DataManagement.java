@@ -3,8 +3,8 @@ package org.example.fineasy.models;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import org.example.fineasy.Utils.ShowDialog;
-import org.example.fineasy.Utils.TransactionNotFoundException;
+import org.example.fineasy.utils.ShowDialog;
+import org.example.fineasy.utils.TransactionNotFoundException;
 
 import java.time.LocalDate;
 
