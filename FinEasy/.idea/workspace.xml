@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Update Sorting function">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/HelloController.java" afterDir="false" />
-    </list>
+    <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Update Sorting function 02" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -130,7 +128,7 @@
       <workItem from="1712119363517" duration="766000" />
       <workItem from="1712146938842" duration="1218000" />
       <workItem from="1712148162461" duration="2360000" />
-      <workItem from="1712150531338" duration="821000" />
+      <workItem from="1712150531338" duration="1291000" />
     </task>
     <task id="LOCAL-00001" summary="Add Sorting function">
       <option name="closed" value="true" />
@@ -148,7 +146,23 @@
       <option name="project" value="LOCAL" />
       <updated>1712150663611</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Update Sorting function 01">
+      <option name="closed" value="true" />
+      <created>1712151454884</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712151454884</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update Sorting function 02">
+      <option name="closed" value="true" />
+      <created>1712151736750</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712151736750</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,7 +199,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add Sorting function" />
     <MESSAGE value="Update Sorting function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Sorting function" />
+    <MESSAGE value="Update Sorting function 01" />
+    <MESSAGE value="Update Sorting function 02" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Sorting function 02" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
