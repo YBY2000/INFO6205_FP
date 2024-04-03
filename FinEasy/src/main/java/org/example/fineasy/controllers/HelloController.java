@@ -1,14 +1,19 @@
 package org.example.fineasy.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.example.fineasy.models.SortingServiceImpl;
+import org.example.fineasy.service.SortingService;
 import org.example.fineasy.utils.ShowDialog;
 import org.example.fineasy.utils.TransactionNotFoundException;
 import org.example.fineasy.models.DataManagement;
 import org.example.fineasy.models.Transaction;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.example.fineasy.utils.LoadNewScene.loadScene;
 
@@ -35,19 +40,36 @@ public class HelloController {
     private TableColumn<Transaction, String> commentColumn;
     @FXML
     private TableColumn<Transaction, String> idColumn;
+    @FXML
+    private ComboBox<String> sortComboBox;
+    private SortingService<Transaction> sortingService;
 
     public HelloController() {
+
     }
 
     /**
      * Initialize the main view
      */
     public void initialize() {
+        sortingService = new SortingServiceImpl();
         // Setup column bindings
         setupColumnBindings();
 
         // Bind TableView to observable list
         updateTransactionsView();
+
+        // Sorting method is not selected by default during initialization
+        sortComboBox.getSelectionModel().clearSelection();
+
+        // Sets the sort of selected event handler
+        sortComboBox.setOnAction(event -> {
+            String selectedCriterion = sortComboBox.getSelectionModel().getSelectedItem();
+            if (selectedCriterion != null && !selectedCriterion.isEmpty()) {
+                sortTransactions(selectedCriterion);
+            }
+        });
+
     } // end initialize
 
 
@@ -130,5 +152,11 @@ public class HelloController {
 
     } // end handleUndoButtonClick
 
+    private void sortTransactions(String criterion) {
+        ObservableList<Transaction> observableList = transactionTable.getItems();
+        sortingService.sort(observableList, criterion);
+        transactionTable.setItems(observableList); // 重新设置排序后的列表
+        transactionTable.refresh(); // 刷新表格显示
+    }
 } // end HelloController
 
