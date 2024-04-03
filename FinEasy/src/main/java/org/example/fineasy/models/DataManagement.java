@@ -39,6 +39,7 @@ public class DataManagement {
     public static DataManagement getInstance() {
         if (instance == null) {
             instance = new DataManagement();
+            instance.addSampleTransactions();
         }
         return instance;
     } // end get Instance
