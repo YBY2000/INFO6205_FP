@@ -50,15 +50,15 @@ public class DataManagement {
      */
     public void addSampleTransactions() {
         addTransaction(new Transaction("1", "Expense", 50.0, LocalDate.now(), "Food", "Lunch with friends"));
-        addTransaction(new Transaction("2", "Income", 1500.0, LocalDate.now(), "Salary", "Monthly salary"));
-        addTransaction(new Transaction("3", "Expense", 300.0, LocalDate.now(), "Electronics", "New headphones"));
-        addTransaction(new Transaction("4", "Expense", 120.0, LocalDate.now(), "Groceries", "Weekly groceries"));
-        addTransaction(new Transaction("5", "Income", 200.0, LocalDate.now(), "Freelance", "Freelance project"));
+        addTransaction(new Transaction("2", "Income", 1500.0, LocalDate.now(), "Education", "Monthly salary"));
+        addTransaction(new Transaction("3", "Expense", 300.0, LocalDate.now(), "Food", "New headphones"));
+        addTransaction(new Transaction("4", "Expense", 120.0, LocalDate.now(), "Education", "Weekly groceries"));
+        addTransaction(new Transaction("5", "Income", 200.0, LocalDate.now(), "Education", "Freelance project"));
         addTransaction(new Transaction("6", "Expense", 60.0, LocalDate.now(), "Entertainment", "Cinema tickets"));
-        addTransaction(new Transaction("7", "Expense", 400.0, LocalDate.now(), "Travel", "Weekend trip"));
+        addTransaction(new Transaction("7", "Expense", 400.0, LocalDate.now(), "Daily", "Weekend trip"));
         addTransaction(new Transaction("8", "Income", 250.0, LocalDate.now(), "Gift", "Birthday money"));
-        addTransaction(new Transaction("9", "Expense", 100.0, LocalDate.now(), "Health", "Pharmacy"));
-        addTransaction(new Transaction("10", "Expense", 90.0, LocalDate.now(), "Books", "Programming books"));
+        addTransaction(new Transaction("9", "Expense", 100.0, LocalDate.now(), "Daily", "Pharmacy"));
+        addTransaction(new Transaction("10", "Expense", 90.0, LocalDate.now(), "Transportation", "Programming books"));
     }
 
     /**
