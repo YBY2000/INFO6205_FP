@@ -96,8 +96,8 @@ public class DataManagement {
     public void undoLastAction() throws TransactionNotFoundException {
         if (!undoStack.isEmpty()) {
             OperationRecord lastOperation = undoStack.pop();
-            Transaction transaction = lastOperation.getTransaction();
-            switch (lastOperation.getOperationType()) {
+            Transaction transaction = lastOperation.transaction();
+            switch (lastOperation.operationType()) {
                 case ADD -> {
                     // the latest operation is ADD, then delete the latest added transaction
                     transactionList.remove(transaction);

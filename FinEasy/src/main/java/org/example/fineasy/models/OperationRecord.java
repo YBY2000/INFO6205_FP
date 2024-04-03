@@ -2,23 +2,11 @@ package org.example.fineasy.models;
 
 import org.example.fineasy.entity.OperationType;
 
-public class OperationRecord {
 
-    private final OperationType operationType;
-    private final Transaction transaction;
-
-    public OperationRecord(OperationType operationType, Transaction transaction) {
-        this.operationType = operationType;
-        this.transaction = transaction;
-    }
-
-    // Getters
-    public OperationType getOperationType() {
-        return operationType;
-    }
-
-    public Transaction getTransaction() {
-        return transaction;
-    }
-}
-
+/**
+ * It is a simply encapsulate data, the traditional class is convert to a record
+ * method like equals(), hashCode(), and toString() is automatically implemented
+ * @param operationType The type of user operation
+ * @param transaction The transaction object that the operation performed on
+ */
+public record OperationRecord(OperationType operationType, Transaction transaction) { }
