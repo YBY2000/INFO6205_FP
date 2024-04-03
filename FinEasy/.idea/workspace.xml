@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Update Sorting function 02" />
+    <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Update addSampleTransactions method">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/VisualizationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/VisualizationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/visualView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/visualView.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,9 +26,6 @@
         <option value="Interface" />
       </list>
     </option>
-  </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="origin/main" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -89,6 +90,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="应用程序.HelloApplication" />
+        <item itemvalue="应用程序.HelloApplication" />
+        <item itemvalue="应用程序.HelloApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -126,43 +129,17 @@
       <workItem from="1711483140609" duration="103000" />
       <workItem from="1711483370626" duration="311000" />
       <workItem from="1712119363517" duration="766000" />
-      <workItem from="1712146938842" duration="1218000" />
-      <workItem from="1712148162461" duration="2360000" />
-      <workItem from="1712150531338" duration="1291000" />
+      <workItem from="1712158952971" duration="1702000" />
     </task>
-    <task id="LOCAL-00001" summary="Add Sorting function">
+    <task id="LOCAL-00001" summary="Update the way of generate ID">
       <option name="closed" value="true" />
-      <created>1712150039631</created>
+      <created>1712121418235</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1712150039631</updated>
+      <updated>1712121418236</updated>
     </task>
-    <task id="LOCAL-00002" summary="Update Sorting function">
-      <option name="closed" value="true" />
-      <created>1712150663611</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1712150663611</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Update Sorting function 01">
-      <option name="closed" value="true" />
-      <created>1712151454884</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1712151454884</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Update Sorting function 02">
-      <option name="closed" value="true" />
-      <created>1712151736750</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1712151736750</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -197,11 +174,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add Sorting function" />
-    <MESSAGE value="Update Sorting function" />
-    <MESSAGE value="Update Sorting function 01" />
-    <MESSAGE value="Update Sorting function 02" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Sorting function 02" />
+    <MESSAGE value="Update the way of generate ID" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update the way of generate ID" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
