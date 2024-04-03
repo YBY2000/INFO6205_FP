@@ -4,11 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
-import org.example.fineasy.exception.TransactionNotFoundException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import org.example.fineasy.Utils.TransactionNotFoundException;
 
 public class DataManagement {
     private LinkedBag<Transaction> transactions;

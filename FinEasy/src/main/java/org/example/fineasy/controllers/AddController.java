@@ -8,24 +8,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.example.fineasy.Utils.ShowDialog;
 import org.example.fineasy.models.DataManagementSingleton;
 import org.example.fineasy.models.Transaction;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * The controller for the add transaction page
+ * include type selection, fill in amount, comment, date pick
+ */
 public class AddController {
     @FXML
     private ChoiceBox<String> choiceType;
-
     @FXML
     private TextField textComment;
-
     @FXML
     private DatePicker datePicker;
-
     @FXML
-    private TextField textAmount; // 假设你有这个输入字段
+    private TextField textAmount;
 
     @FXML private ToggleButton toggleFood;
     @FXML private ToggleButton toggleEducation;
@@ -35,6 +37,9 @@ public class AddController {
     @FXML private ToggleButton toggleGift;
     private ToggleGroup categoryToggleGroup;
 
+    /**
+     * Initialize the toggle group for inputing data
+     */
     @FXML
     public void initialize() {
         categoryToggleGroup = new ToggleGroup();
@@ -46,11 +51,15 @@ public class AddController {
         toggleGift.setToggleGroup(categoryToggleGroup);
     }
 
+    /**
+     * @param event The save button click event
+     * Handle the event when the save button be clicked
+     */
     @FXML
     private void handleSaveAction(ActionEvent event) {
         try {
             String id = generateTransactionId();
-            String type = choiceType.getValue();    //TODO: 把type写成enum
+            String type = choiceType.getValue();
             double amount = Double.parseDouble(textAmount.getText().trim()); // trim() to remove leading/trailing spaces
             LocalDate date = datePicker.getValue();
 
@@ -65,10 +74,9 @@ public class AddController {
 
             System.out.println("Transaction saved successfully.");
             navigateToMainView(event);
-        } catch (Exception e) { // Broader exception handling
-            System.err.println("Error saving transaction: " + e.getMessage());
-            e.printStackTrace();
-            // Add error feedback to the user here
+        } catch (Exception e) {
+            // Broader exception handling
+            ShowDialog.showAlert("Error", "Error saving transaction: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -89,8 +97,7 @@ public class AddController {
 
             stage.show();
         } catch (IOException e) {
-            System.err.println("Error navigating to the main view: " + e.getMessage());
-            e.printStackTrace();
+            ShowDialog.showAlert("Error", "Error navigating to the main view: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -120,9 +127,7 @@ public class AddController {
             // Show the stage with MainView
             stage.show();
         } catch (IOException e) {
-            System.err.println("Error navigating to the main view: " + e.getMessage());
-            e.printStackTrace();
-            // Error handling, for example showing a dialog box to notify the user of the error
+            ShowDialog.showAlert("Error", "Error navigating to the main view: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

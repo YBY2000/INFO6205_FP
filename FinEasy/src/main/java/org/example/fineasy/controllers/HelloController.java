@@ -1,36 +1,26 @@
 package org.example.fineasy.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import org.example.fineasy.controllers.AddController;
-import org.example.fineasy.exception.TransactionNotFoundException;
+import org.example.fineasy.Utils.ShowDialog;
+import org.example.fineasy.Utils.TransactionNotFoundException;
 import org.example.fineasy.models.DataManagementSingleton;
-import org.example.fineasy.models.OperationRecord;
 import org.example.fineasy.models.Transaction;
 
-import java.io.IOException;
 import java.time.LocalDate;
 
+import static org.example.fineasy.Utils.LoadNewScene.loadScene;
+
+/**
+ * The controller for the main page
+ * include add, undo, delete, visualization button
+ */
 public class HelloController {
     @FXML
-    private Label welcomeText;
-
+    private Button addButton;
     @FXML
-    private BorderPane borderPane; // 确保这是 BorderPane 类型
-
-    @FXML
-    private Button addButton; // This is the new button for "add"
-
+    private Button visualizationButton;
     @FXML
     private TableView<Transaction> transactionTable;
     @FXML
@@ -46,92 +36,98 @@ public class HelloController {
     @FXML
     private TableColumn<Transaction, String> idColumn;
 
-    //MainView Form initial
+    public HelloController() {
+    }
+
+    /**
+     * Initialize the main view
+     */
     public void initialize() {
         // Setup column bindings
         setupColumnBindings();
 
         // Bind TableView to observable list
         updateTransactionsView();
-    }
+    } // end initialize
 
+
+    /**
+     * Bind the transactions list table column
+     */
     private void setupColumnBindings() {
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-        commentColumn.setCellValueFactory(new PropertyValueFactory<>("comment"));
-    }
+        typeColumn.setCellValueFactory(cellData -> cellData.getValue().typeProperty());
+        amountColumn.setCellValueFactory(cellData -> cellData.getValue().amountProperty().asObject());
+        dateColumn.setCellValueFactory(cellData -> cellData.getValue().dateProperty());
+        categoryColumn.setCellValueFactory(cellData -> cellData.getValue().categoryProperty());
+        commentColumn.setCellValueFactory(cellData -> cellData.getValue().commentProperty());
+    } // end setupColumnBindings
 
 
+    /**
+     * Update the transactions list view
+     */
     public void updateTransactionsView() {
         transactionTable.setItems(DataManagementSingleton.getInstance().getTransactionsObservable());
-    }
+    } // end updateTransactionsView
 
+    /**
+     * Handle when the add button be clicked
+     * load the new scene - add transaction
+     */
     @FXML
     public void handleAddButtonClick() {
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/org/example/fineasy/addView.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) addButton.getScene().getWindow();
-            stage.setScene(scene);
+        loadScene("/org/example/fineasy/addView.fxml", addButton);
+    } // end handleAddButtonClick
 
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // 处理加载视图失败的情况
-        }
-    }
 
-    
-
+    /**
+     * Handle when the visualization button be clicked
+     * load a new scene - visualization page
+     */
     public void handleVisualizationButtonClick() {
-        try {
-            // 更新这里的路径，确保它是正确的
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fineasy/visualView.fxml"));
-            if (loader.getLocation() == null) {
-                System.err.println("无法加载视图，检查FXML文件路径是否正确");
-                return;
-            }
+        loadScene("/org/example/fineasy/visualView.fxml", visualizationButton);
+    } // end handleVisualizationButtonClick
 
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) addButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("加载视图失败: " + e.getMessage());
-            // 可以在这里添加更多的错误处理，如显示一个错误对话框等
-        }
-    }
 
+    /**
+     * Handle when delete button be clicked
+     * It will delete the row that user selected
+     * throws exception when no row selected or transaction not found
+     */
     @FXML
-    public void handleDeleteButtonClick() throws TransactionNotFoundException {
+    public void handleDeleteButtonClick() {
         Transaction selectedTransaction = transactionTable.getSelectionModel().getSelectedItem();
         if (selectedTransaction != null) {
-            String transactionId = selectedTransaction.getId();
-            // Assuming DataManagementSingleton has a deleteTransaction method that takes an ID as a string
-            DataManagementSingleton.getInstance().deleteTransaction(transactionId);
-            updateTransactionsView(); // Refresh the table view to reflect the deletion
+            boolean confirmed = ShowDialog.showConfirmationDialog("Confirm Delete", "Are you sure you want to delete this transaction?");
+            if (confirmed) {
+                try {
+                    DataManagementSingleton.getInstance().deleteTransaction(selectedTransaction.getId());
+                } catch (TransactionNotFoundException e){
+                    ShowDialog.showAlert("Error", "Transaction not found: " + e.getMessage(), Alert.AlertType.ERROR);
+                }
+                updateTransactionsView();
+            }
         } else {
-            // Optionally, show an alert or notification that no row is selected
-            System.out.println("No transaction selected for deletion.");
+            ShowDialog.showAlert("Warning", "No transaction selected for deletion.", Alert.AlertType.WARNING);
         }
-    }
+    } // end handleDeleteButtonClick
 
+
+    /**
+     * Handle when undo button be clicked
+     * It will undo the latest user operation
+     * throws exception when no latest operation found or transaction not found
+     */
     @FXML
     public void handleUndoButtonClick() {
         try {
             DataManagementSingleton.getInstance().undoLastAction();
-            updateTransactionsView(); // Refresh the table view to show the current state of transactions
+            updateTransactionsView();
         } catch (TransactionNotFoundException e) {
-            // Log the error or notify the user if necessary
-            e.printStackTrace();
+            ShowDialog.showAlert("Error", "Unable to undo the last action: " + e.getMessage(), Alert.AlertType.ERROR);
         }
-    }
+    } // end handleUndoButtonClick
 
-
-}
+} // end HelloController
 
