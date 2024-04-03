@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.fineasy.Utils.ShowDialog;
-import org.example.fineasy.models.DataManagementSingleton;
+import org.example.fineasy.models.DataManagement;
 import org.example.fineasy.models.Transaction;
 
 import java.io.IOException;
@@ -20,6 +20,8 @@ import java.time.LocalDate;
  * include type selection, fill in amount, comment, date pick
  */
 public class AddController {
+    public Button btnSave;
+    public Button btnCancel;
     @FXML
     private ChoiceBox<String> choiceType;
     @FXML
@@ -38,7 +40,7 @@ public class AddController {
     private ToggleGroup categoryToggleGroup;
 
     /**
-     * Initialize the toggle group for inputing data
+     * Initialize the toggle group for inputting data
      */
     @FXML
     public void initialize() {
@@ -70,7 +72,7 @@ public class AddController {
             String comment = textComment.getText().trim(); // trim() here as well
 
             Transaction transaction = new Transaction(id, type, amount, date, category, comment);
-            DataManagementSingleton.getInstance().addTransaction(transaction);
+            DataManagement.getInstance().addTransaction(transaction);
 
             System.out.println("Transaction saved successfully.");
             navigateToMainView(event);

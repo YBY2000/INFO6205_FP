@@ -5,7 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.example.fineasy.Utils.ShowDialog;
 import org.example.fineasy.Utils.TransactionNotFoundException;
-import org.example.fineasy.models.DataManagementSingleton;
+import org.example.fineasy.models.DataManagement;
 import org.example.fineasy.models.Transaction;
 
 import java.time.LocalDate;
@@ -68,7 +68,7 @@ public class HelloController {
      * Update the transactions list view
      */
     public void updateTransactionsView() {
-        transactionTable.setItems(DataManagementSingleton.getInstance().getTransactionsObservable());
+        transactionTable.setItems(DataManagement.getInstance().getTransactionsObservable());
     } // end updateTransactionsView
 
     /**
@@ -102,7 +102,7 @@ public class HelloController {
             boolean confirmed = ShowDialog.showConfirmationDialog("Confirm Delete", "Are you sure you want to delete this transaction?");
             if (confirmed) {
                 try {
-                    DataManagementSingleton.getInstance().deleteTransaction(selectedTransaction.getId());
+                    DataManagement.getInstance().deleteTransaction(selectedTransaction.getId());
                 } catch (TransactionNotFoundException e){
                     ShowDialog.showAlert("Error", "Transaction not found: " + e.getMessage(), Alert.AlertType.ERROR);
                 }
@@ -122,7 +122,7 @@ public class HelloController {
     @FXML
     public void handleUndoButtonClick() {
         try {
-            DataManagementSingleton.getInstance().undoLastAction();
+            DataManagement.getInstance().undoLastAction();
             updateTransactionsView();
         } catch (TransactionNotFoundException e) {
             ShowDialog.showAlert("Error", "Unable to undo the last action: " + e.getMessage(), Alert.AlertType.ERROR);

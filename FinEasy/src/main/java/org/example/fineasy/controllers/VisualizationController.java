@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.chart.PieChart.Data;
@@ -16,6 +17,7 @@ import java.io.IOException;
 
 public class VisualizationController {
 
+    public Button backButton;
     @FXML
     private DatePicker datePicker;
 

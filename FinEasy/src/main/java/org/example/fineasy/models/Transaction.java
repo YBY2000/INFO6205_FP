@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 
-public class Transaction {
+public class Transaction{
     private final StringProperty id;
     private final StringProperty type;
     private final DoubleProperty amount;

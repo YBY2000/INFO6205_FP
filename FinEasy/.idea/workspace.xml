@@ -5,16 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/Utils/LoadNewScene.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/Utils/ShowDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/Utils/AppConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/entity/OperationType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/Utils/LoadNewScene.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/Utils/LoadNewScene.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/AddController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/exception/TransactionNotFoundException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/Utils/TransactionNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/VisualizationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/VisualizationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/BagInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/service/BagInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/DataManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/DataManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/LinkedBag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/LinkedBag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/OperationRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/OperationRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/StackInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/service/StackInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/UndoStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/UndoStack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/addView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/addView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/mainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/mainView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/visualView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/visualView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +37,7 @@
       <list>
         <option value="FxmlFile" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>

@@ -1,5 +1,10 @@
 package org.example.fineasy.models;
 
+import org.example.fineasy.service.BagInterface;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  A class of bags whose entries are stored in a chain of linked nodes.
  The bag is never full.
@@ -8,7 +13,7 @@ package org.example.fineasy.models;
  toArray, isEmpty, and getCurrentSize.
  */
 
-public final class LinkedBag<T> implements BagInterface<T>
+public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
 {
     private Node firstNode;       // Reference to first node
     private int numberOfEntries;
@@ -224,5 +229,24 @@ public final class LinkedBag<T> implements BagInterface<T>
         return;
     }  // end removeDuplicates
 
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private Node current = firstNode;
+
+            @Override
+            public boolean hasNext() {
+                return current != null;
+            }
+
+            @Override
+            public T next() {
+                if (!hasNext()) throw new NoSuchElementException();
+                T item = current.data;
+                current = current.next;
+                return item;
+            }
+        };
+    }
 } // end LinkedBag
 

@@ -1,9 +1,8 @@
 package org.example.fineasy.models;
 
+import org.example.fineasy.entity.OperationType;
+
 public class OperationRecord {
-    public enum OperationType {
-        ADD, DELETE, EDIT
-    }
 
     private final OperationType operationType;
     private final Transaction transaction;

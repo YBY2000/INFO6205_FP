@@ -1,4 +1,4 @@
-package org.example.fineasy.models;
+package org.example.fineasy.service;
 
 
 

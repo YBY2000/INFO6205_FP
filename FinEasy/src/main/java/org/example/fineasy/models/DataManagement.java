@@ -2,98 +2,142 @@ package org.example.fineasy.models;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Alert;
+import org.example.fineasy.Utils.ShowDialog;
 import org.example.fineasy.Utils.TransactionNotFoundException;
 
-public class DataManagement {
-    private LinkedBag<Transaction> transactions;
-    private UndoStack<OperationRecord> undoStack;
-    private BinarySearchTree bst; // Binary Search实例
-    @FXML
-    private TableView<Transaction> transactionTable;
+import static org.example.fineasy.entity.OperationType.ADD;
+import static org.example.fineasy.entity.OperationType.DELETE;
 
-    //添加数据监听和获取功能
+/**
+ * The class to manage all data in the system
+ * It is the singleton that prevent from multiple access
+ *
+ * Add transaction: call addTransaction(Transaction transaction), add record to list and BST
+ * Delete transaction: call deleteTransaction(String transactionId), delete record from list, TODO: delete record in BST
+ * Modify transaction: TODO: use modifyTransaction(String transactionId, Transaction newTransactionData) to update transaction, (only detail data change, has no influence to BST)
+ * Undo operation: call undoLastAction(), undo the latest operation
+ * search transaction by id: call searchTransactionById(String id) to use BST for efficient search
+ */
+public class DataManagement {
+    private static DataManagement instance; // Static instance variable
+
+    private final LinkedBag<Transaction> transactionList;
+    private final UndoStack<OperationRecord> undoStack;
+    private final BinarySearchTree bst;
     private final ObservableList<Transaction> transactionsObservable = FXCollections.observableArrayList();
 
+    // Private constructor
+    private DataManagement() {
+        this.transactionList = new LinkedBag<>();
+        this.undoStack = new UndoStack<>();
+        this.bst = new BinarySearchTree();
+    } // end constructor
+
+    // Public static method to get the instance
+    public static DataManagement getInstance() {
+        if (instance == null) {
+            instance = new DataManagement();
+        }
+        return instance;
+    } // end get Instance
+
+
+    /**
+     * Returns an observable list of transactions for UI binding.
+     * @return ObservableList of Transaction objects.
+     */
     public ObservableList<Transaction> getTransactionsObservable() {
         return transactionsObservable;
-    }
-
-    public void updateTransactionsView() {
-        transactionTable.setItems(DataManagementSingleton.getInstance().getTransactionsObservable());
-    }
+    } // end getTransactionsObservable
 
 
-    public DataManagement() {
-        this.transactions = new LinkedBag<>();
-        this.undoStack = new UndoStack<>();
-        this.bst = new BinarySearchTree(); // 初始化BST
-    }
-
+    /**
+     * Adds a new transaction to the system,
+     * including the linked list bag, observable list for UI, binary search tree for efficient search, and undo stack for operation reversal.
+     * also add to observable list, BST, and undo stack
+     *
+     * @param transaction The Transaction object to add
+     */
     public void addTransaction(Transaction transaction) {
-        transactions.add(transaction);
-        transactionsObservable.add(transaction); // Add to observable list
-        bst.insert(transaction); // Insert into BST
-//        undoStack.push(() -> {
-//            transactions.remove(transaction);
-//            transactionsObservable.remove(transaction); // Remove from observable list
-//        });
-        // TODO: operation_type写成enum, 1:add, 2: delete, 3:edit, 4:reorder
-        undoStack.push(new OperationRecord(OperationRecord.OperationType.ADD, transaction));
-    }
+        transactionList.add(transaction);
+        transactionsObservable.add(transaction);
+        bst.insert(transaction);
+        undoStack.push(new OperationRecord(ADD, transaction));
+    } // end addTransaction
 
 
-//    public void deleteTransaction(String transactionId) throws TransactionNotFoundException {
-//        Transaction transaction = searchTransactionById(transactionId);
-//        if (transaction == null) {
-//            throw new TransactionNotFoundException("Transaction with ID " + transactionId + " not found.");
-//        }
-//        transactions.remove(transaction);
-//        // TODO: operation_type写成enum, 1:add, 2: delete, 3:edit, 4:reorder
-//        undoStack.push(new OperationRecord(2, transaction));
-////        undoStack.push(() -> transactions.add(transaction));
-//        // 注意：在实际应用中，你可能还需要处理BST中的删除
-//    }
-public void deleteTransaction(String transactionId) throws TransactionNotFoundException {
-    Transaction transactionToDelete = null;
-    for (Transaction transaction : transactionsObservable) {
-        if (transaction.getId().equals(transactionId)) {
-            transactionToDelete = transaction;
-            break;
-        }
-    }
-    if (transactionToDelete != null) {
-        transactionsObservable.remove(transactionToDelete);
-        // Push an undo operation for deletion
-        undoStack.push(new OperationRecord(OperationRecord.OperationType.DELETE, transactionToDelete));
-    } else {
-        throw new TransactionNotFoundException("Transaction with ID " + transactionId + " not found.");
-    }
-}
+    /**
+     * Deletes a transaction by its ID. Throws TransactionNotFoundException if the transaction is not found.
+     * @param transactionId The ID of the transaction to delete.
+     * @throws TransactionNotFoundException If the transaction cannot be found.
+     */
+    public void deleteTransaction(String transactionId) throws TransactionNotFoundException
+    {
 
+        Transaction transactionToDelete = searchTransactionById(transactionId);
+        if (transactionToDelete != null) {
+            transactionsObservable.remove(transactionToDelete);
+            transactionList.remove(transactionToDelete);
+            bst.delete(transactionToDelete);
+            undoStack.push(new OperationRecord(DELETE, transactionToDelete));
+        } else {
+            String errMsg = "Transaction with ID " + transactionId + " not found.";
+            ShowDialog.showAlert("Error", errMsg, Alert.AlertType.ERROR);
+            throw new TransactionNotFoundException(errMsg);
+        } // end if(transactionToDelete != null) - else
+    } // end deleteTransaction
+
+
+    /**
+     * Undoes the last user operation, either adding or deleting a transaction, depending on what the last operation was.
+     * @throws TransactionNotFoundException If there's an issue reverting the last operation, such as not finding the transaction to undo delete.
+     */
     public void undoLastAction() throws TransactionNotFoundException {
         if (!undoStack.isEmpty()) {
             OperationRecord lastOperation = undoStack.pop();
+            Transaction transaction = lastOperation.getTransaction();
             switch (lastOperation.getOperationType()) {
-                case ADD:
-                    // Undo the addition by removing the transaction
-                    transactions.remove(lastOperation.getTransaction());
-                    transactionsObservable.remove(lastOperation.getTransaction());
-                    // Optionally, handle BST removal here
-                    break;
-                case DELETE:
-                    // Undo the deletion by re-adding the transaction
-                    transactions.add(lastOperation.getTransaction());
-                    transactionsObservable.add(lastOperation.getTransaction());
-                    // Optionally, re-insert into BST here
-                    break;
-                case EDIT:
-                    // Undo editing (requires storing previous state in OperationRecord)
-                    break;
+                case ADD -> {
+                    // the latest operation is ADD, then delete the latest added transaction
+                    transactionList.remove(transaction);
+                    transactionsObservable.remove(transaction);
+                    bst.delete(transaction);
+                }
+                case DELETE -> {
+                    // the latest operation is DELETE, then add the latest deleted transaction
+                    transactionList.add(transaction);
+                    transactionsObservable.add(transaction);
+                    bst.insert(transaction);
+                }
+                // TODO: Handle EDIT case as needed
             }
+        } else {
+            String errMsg = "No operations to undo.";
+            throw new TransactionNotFoundException(errMsg);
+        } // end if(!undoStack.isEmpty()) - else
+    } // end undoLastAction
+
+
+    // 打印所有交易记录，方便调试
+    public void printTransactions() {
+        for (Transaction transaction : transactionList) {
+            System.out.println(transaction);
         }
-    }
+    } // end printTransactions
+
+
+    // use BST to search
+    public Transaction searchTransactionById(String id) {
+        return bst.search(id);
+    } // end searchTransactionById
+
+
+    // TODO: modify transaction
+    // TODO: sorting
+} // end DataManagement
+
+
 
 
 //    public void modifyTransaction(String transactionId, Transaction newTransactionData) throws TransactionNotFoundException {
@@ -118,42 +162,3 @@ public void deleteTransaction(String transactionId) throws TransactionNotFoundEx
 //        }
 //    }
 
-
-
-//    public void undoLastAction() {
-//        if (!undoStack.isEmpty()) {
-//            undoStack.pop().run();
-//        }
-//    }
-
-//    private Transaction findTransactionById(String id) {
-//        // TODO:
-//        return transactions.stream()
-//                .filter(transaction -> transaction.getId().equals(id))
-//                .findFirst()
-//                .orElse(null);
-//    }
-
-
-    // 打印所有交易记录，方便调试
-//    public void printTransactions() {
-//        transactions.forEach(System.out::println);
-//    }
-
-    // 使用BST进行搜索
-//    public Transaction searchTransactionById(String id) {
-//        return bst.search(id);
-//    }
-
-
-//    public void sortTransactionsByDate() {
-//        DateSortingStrategy sortingStrategy = new DateSortingStrategy();
-//        sortingStrategy.sort(transactions);
-//    }
-}
-
-//添加交易记录: 调用 addTransaction(Transaction transaction) 方法，它将交易记录添加到列表和BST中。
-//删除交易记录: 调用 deleteTransaction(String transactionId) 方法，它将从列表中删除交易记录。为简化示例，我们没有在BST中实现删除功能。
-//修改交易记录: 调用 modifyTransaction(String transactionId, Transaction newTransactionData) 方法，它将更新列表中的交易记录。修改操作不会影响BST，因为ID不会改变。
-//撤销上一操作: 调用 undoLastAction() 方法，它将撤销上一次添加或删除操作。
-//按ID搜索交易记录: 使用 searchTransactionById(String id) 方法，它将通过BST进行高效搜索。

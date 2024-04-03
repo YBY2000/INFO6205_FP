@@ -10,4 +10,5 @@ module org.example.fineasy {
     opens org.example.fineasy to javafx.fxml;
     exports org.example.fineasy;
     exports org.example.fineasy.controllers;
+    opens org.example.fineasy.service to javafx.base, javafx.fxml;
 }

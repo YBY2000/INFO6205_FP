@@ -1,7 +1,8 @@
 package org.example.fineasy.models;
 
+import org.example.fineasy.service.StackInterface;
+
 import java.util.EmptyStackException;
-import java.util.Stack;
 import java.util.Vector;
 
 public class UndoStack<T> implements StackInterface<T> {
