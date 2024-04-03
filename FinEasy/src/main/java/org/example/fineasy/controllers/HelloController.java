@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.example.fineasy.models.LinkedBag;
 import org.example.fineasy.models.SortingServiceImpl;
 import org.example.fineasy.service.SortingService;
 import org.example.fineasy.utils.ShowDialog;
@@ -14,6 +15,7 @@ import org.example.fineasy.models.Transaction;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import static org.example.fineasy.utils.LoadNewScene.loadScene;
 
@@ -152,11 +154,53 @@ public class HelloController {
 
     } // end handleUndoButtonClick
 
+    // 方法位于HelloController类中
     private void sortTransactions(String criterion) {
-        ObservableList<Transaction> observableList = transactionTable.getItems();
-        sortingService.sort(observableList, criterion);
-        transactionTable.setItems(observableList); // 重新设置排序后的列表
-        transactionTable.refresh(); // 刷新表格显示
+        // Step 1: 转换ObservableList到LinkedBag
+        LinkedBag<Transaction> linkedBag = new LinkedBag<>();
+        for (Transaction transaction : transactionTable.getItems()) {
+            linkedBag.add(transaction);
+        }
+
+        // Step 2: 定义Comparator
+        Comparator<Transaction> comparator = getTransactionComparator(criterion);
+
+        // Step 3: 使用LinkedBag的sort方法进行排序
+        if (comparator != null) {
+            linkedBag.sort(comparator);
+        }
+
+        // Step 4: 将LinkedBag转换回ObservableList
+        ObservableList<Transaction> sortedList = FXCollections.observableArrayList();
+        for (Transaction transaction : linkedBag) {
+            sortedList.add(transaction);
+        }
+
+        // Step 5: 更新TableView
+        transactionTable.setItems(sortedList);
+        transactionTable.refresh();
     }
+
+    // 辅助方法：根据排序标准返回相应的Comparator
+    private Comparator<Transaction> getTransactionComparator(String criterion) {
+        switch (criterion) {
+            case "Amount":
+                return Comparator.comparing(Transaction::getAmount);
+            case "Date":
+                return Comparator.comparing(Transaction::getDate);
+            case "Type":
+                return Comparator.comparing(Transaction::getType);
+            case "Category":
+                return Comparator.comparing(Transaction::getCategory);
+            default:
+                return null; // 如果无法识别标准，返回null
+        }
+    }
+//    private void sortTransactions(String criterion) {
+//        ObservableList<Transaction> observableList = transactionTable.getItems();
+//        sortingService.sort(observableList, criterion);
+//        transactionTable.setItems(observableList); // 重新设置排序后的列表
+//        transactionTable.refresh(); // 刷新表格显示
+//    }
 } // end HelloController
 
