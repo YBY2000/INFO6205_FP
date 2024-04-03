@@ -122,7 +122,6 @@ public class AddController {
             try {
                 currentId = Integer.parseInt(transaction.getId());
             } catch (NumberFormatException e) {
-                // If fall ,skip
                 continue;
             }
 
