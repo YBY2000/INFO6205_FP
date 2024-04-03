@@ -1,4 +1,4 @@
-package org.example.fineasy.Utils;
+package org.example.fineasy.utils;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

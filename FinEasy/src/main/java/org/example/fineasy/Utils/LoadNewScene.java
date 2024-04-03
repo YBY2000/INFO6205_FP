@@ -1,4 +1,4 @@
-package org.example.fineasy.Utils;
+package org.example.fineasy.utils;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,8 +9,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static org.example.fineasy.Utils.AppConstants.PREF_HEIGHT;
-import static org.example.fineasy.Utils.AppConstants.PREF_WIDTH;
+import static org.example.fineasy.utils.AppConstants.PREF_HEIGHT;
+import static org.example.fineasy.utils.AppConstants.PREF_WIDTH;
 
 public class LoadNewScene {
 
@@ -26,7 +26,7 @@ public class LoadNewScene {
 
             stage.show();
         } catch (IOException e) {
-            ShowDialog.showAlert("Error", "Failed to load the scene: " + e.getMessage(), Alert.AlertType.ERROR);
+            org.example.fineasy.utils.ShowDialog.showAlert("Error", "Failed to load the scene: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
