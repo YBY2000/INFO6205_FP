@@ -1,5 +1,12 @@
 package org.example.fineasy.models;
 
+/**
+ * TODO: re-create a BinarySearchTree that can implement a quick search for particular record using keyword!!!
+ * TODO: there need a interface called BSTInterface<T> in service package
+ * TODO: the BinarySearchTree<T> need to implement the BSTInterface<T>
+ * TODO: should write generic for both interface<T> and implementation of BinarySearchTree<T>
+ * TODO: write proper javadoc for BinarySearchTree<T>
+ */
 class BinarySearchTree {
     private BSTNode root;
 
@@ -7,7 +14,6 @@ class BinarySearchTree {
         this.root = null;
     }
 
-    // 插入新节点
     public void insert(Transaction data) {
         root = insertRec(root, data);
     }

@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
 
-<VBox fx:id="mainView" alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.fineasy.HelloController">
+<VBox fx:id="mainView" alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.fineasy.controllers.HelloController">
   <padding>
     <Insets bottom="40.0" left="100.0" right="100.0" top="40.0" />
   </padding>
@@ -44,7 +39,7 @@
             </columns>
         </TableView>
         <Button fx:id="addButton" onAction="#handleAddButtonClick" style="-fx-background-color: orange; -fx-border-color: black;" styleClass="floating-action-button" text="Add" />
-        <Button fx:id="UndoButton"  style="-fx-background-color: orange; -fx-border-color: black;" styleClass="floating-action-button" text="Undo" />
-        <Button fx:id="deleteButton"  style="-fx-background-color: orange; -fx-border-color: black;" styleClass="floating-action-button" text="Delete" />
+        <Button fx:id="UndoButton" onAction="#handleUndoButtonClick" style="-fx-background-color: orange; -fx-border-color: black;" styleClass="floating-action-button" text="Undo" />
+        <Button fx:id="deleteButton" onAction="#handleDeleteButtonClick"   style="-fx-background-color: orange; -fx-border-color: black;" styleClass="floating-action-button" text="Delete" />
     </children>
 </VBox>

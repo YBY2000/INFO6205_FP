@@ -8,27 +8,30 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import org.example.fineasy.HelloController;
-import org.example.fineasy.models.DataManagementSingleton;
+import org.example.fineasy.utils.ShowDialog;
+import org.example.fineasy.models.DataManagement;
 import org.example.fineasy.models.Transaction;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
+import static org.example.fineasy.utils.LoadNewScene.loadScene;
+
+/**
+ * The controller for the add transaction page
+ * include type selection, fill in amount, comment, date pick
+ */
 public class AddController {
+    public Button btnSave;
+    public Button btnCancel;
     @FXML
     private ChoiceBox<String> choiceType;
-
     @FXML
     private TextField textComment;
-
     @FXML
     private DatePicker datePicker;
-
     @FXML
-    private TextField textAmount; // 假设你有这个输入字段
-    @FXML
-    private TextField textCategory; // 假设你有这个输入字段
+    private TextField textAmount;
 
     @FXML private ToggleButton toggleFood;
     @FXML private ToggleButton toggleEducation;
@@ -38,6 +41,9 @@ public class AddController {
     @FXML private ToggleButton toggleGift;
     private ToggleGroup categoryToggleGroup;
 
+    /**
+     * Initialize the toggle group for inputting data
+     */
     @FXML
     public void initialize() {
         categoryToggleGroup = new ToggleGroup();
@@ -49,77 +55,63 @@ public class AddController {
         toggleGift.setToggleGroup(categoryToggleGroup);
     }
 
+    /**
+     * @param event The save button click event
+     * Handle the event when the save button be clicked
+     */
     @FXML
     private void handleSaveAction(ActionEvent event) {
         try {
             String id = generateTransactionId();
             String type = choiceType.getValue();
             double amount = Double.parseDouble(textAmount.getText().trim()); // trim() to remove leading/trailing spaces
-            LocalDate date = datePicker.getValue();
+            Transaction transaction = getTransaction(id, type, amount);
+            DataManagement.getInstance().addTransaction(transaction);
 
-            // Determine the selected category from ToggleButtons
-            ToggleButton selectedCategory = (ToggleButton) categoryToggleGroup.getSelectedToggle();
-            String category = selectedCategory != null ? selectedCategory.getText() : "None"; // "None" or similar default
-
-            String comment = textComment.getText().trim(); // trim() here as well
-
-            Transaction transaction = new Transaction(id, type, amount, date, category, comment);
-            DataManagementSingleton.getInstance().addTransaction(transaction);
-
-            System.out.println("Transaction saved successfully.");
             navigateToMainView(event);
-        } catch (Exception e) { // Broader exception handling
-            System.err.println("Error saving transaction: " + e.getMessage());
-            e.printStackTrace();
-            // Add error feedback to the user here
+        } catch (Exception e) {
+            // Broader exception handling
+            ShowDialog.showAlert("Error", "Error saving transaction: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
-    private void navigateToMainView(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fineasy/mainView.fxml"));
-            Parent mainViewRoot = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(mainViewRoot));
+    /**
+     * The method to get the data of transaction that user input
+     *
+     * @param id The id of the transaction that user input
+     * @param type The type of the transaction that user input
+     * @param amount The amount of the transaction that user input
+     * @return The Transaction Object to be stored
+     */
+    private Transaction getTransaction(String id, String type, double amount) {
+        LocalDate date = datePicker.getValue();
 
-            // Now trigger the update in HelloController (the main view's controller)
-            HelloController helloController = loader.getController();
-            if (helloController != null) {
-                helloController.updateTransactionsView();
-            }
+        // Determine the selected category from ToggleButtons
+        ToggleButton selectedCategory = (ToggleButton) categoryToggleGroup.getSelectedToggle();
+        String category = selectedCategory != null ? selectedCategory.getText() : "None"; // "None" or similar default
 
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Error navigating to the main view: " + e.getMessage());
-            e.printStackTrace();
-        }
+        String comment = textComment.getText().trim(); // trim() here as well
+
+        return new Transaction(id, type, amount, date, category, comment);
     }
-
-
 
     @FXML
-    private void handleCancelAction(ActionEvent event) {
-        try {
-            // 加载主视图FXML文件
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fineasy/mainView.fxml"));
-            Parent mainView = loader.load();
-
-            // 获取当前窗口（Stage）并设置新场景（Scene）
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(mainView); // 将主视图设置为当前场景的根节点
-        } catch (IOException e) {
-            e.printStackTrace();
-            // 错误处理，例如显示一个对话框通知用户错误
-        }
+    private void navigateToMainView(ActionEvent event) {
+        loadScene("/org/example/fineasy/mainView.fxml", btnSave);
     }
+
 
     private void closeStage(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * The automatic ID generator for transaction, based on timestamp
+     *
+     * @return The generated id
+     */
     private String generateTransactionId() {
-        // 实现ID生成逻辑，例如基于时间戳或其他
         return String.valueOf(System.currentTimeMillis());
     }
 }

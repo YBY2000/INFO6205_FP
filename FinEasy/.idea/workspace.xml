@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/DataManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/DataManagement.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,12 +19,18 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="ZJM-Branch" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MavenImportPreferences">
@@ -74,7 +77,7 @@
       <module name="FinEasy" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.example.fineasy.*" />
+          <option name="PATTERN" value="org.example.fineasy.controllers.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -117,12 +120,44 @@
       <workItem from="1711472795459" duration="272000" />
       <workItem from="1711473147532" duration="231000" />
       <workItem from="1711475795176" duration="1188000" />
-      <workItem from="1711481168835" duration="1076000" />
+      <workItem from="1711481168835" duration="1375000" />
+      <workItem from="1711482693940" duration="361000" />
+      <workItem from="1711483140609" duration="103000" />
+      <workItem from="1711483370626" duration="311000" />
+      <workItem from="1712119363517" duration="766000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="ZJM-Branch" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

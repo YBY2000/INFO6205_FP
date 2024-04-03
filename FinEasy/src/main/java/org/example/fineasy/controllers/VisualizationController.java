@@ -1,24 +1,23 @@
 package org.example.fineasy.controllers;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.chart.PieChart.Data;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
-import org.example.fineasy.models.DataManagementSingleton;
-import org.example.fineasy.models.Transaction;
 
 import java.io.IOException;
 
 public class VisualizationController {
 
+    public Button backButton;
     @FXML
     private DatePicker datePicker;
 
@@ -90,20 +89,54 @@ public class VisualizationController {
         pieChart.getData().addAll(data);
     }
 
+    private void navigateToMainView(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fineasy/mainView.fxml"));
+            Parent mainViewRoot = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the scene with the specific width and height to reset its size
+            Scene mainViewScene = new Scene(mainViewRoot, 800, 800);
+            stage.setScene(mainViewScene);
+
+            HelloController helloController = loader.getController();
+            if (helloController != null) {
+                helloController.updateTransactionsView();
+            }
+
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error navigating to the main view: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void handleBackButtonAction(ActionEvent event) {
         try {
-            // 加载主视图FXML文件
+            // Load the MainView FXML file
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fineasy/mainView.fxml"));
-            Parent mainView = loader.load();
+            Parent mainViewRoot = loader.load();
 
-            // 获取当前窗口（Stage）并设置新场景（Scene）
+            // Get the current window (Stage) and set the new scene (Scene)
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(mainView); // 将主视图设置为当前场景的根节点
+
+            // Set the scene with specific width and height to reset its size
+            Scene mainViewScene = new Scene(mainViewRoot, 800, 800);
+            stage.setScene(mainViewScene);
+
+            // Optionally, if there is any need to perform actions on the controller of MainView
+            HelloController controller = loader.getController();
+            if (controller != null) {
+                controller.updateTransactionsView(); // This line is optional depending on your needs
+            }
+
+            // Show the stage with MainView
+            stage.show();
         } catch (IOException e) {
+            System.err.println("Error navigating to the main view: " + e.getMessage());
             e.printStackTrace();
-            // 错误处理，例如显示一个对话框通知用户错误
+            // Error handling, for example showing a dialog box to notify the user of the error
         }
     }
 }

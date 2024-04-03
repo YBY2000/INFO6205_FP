@@ -1,4 +1,4 @@
-package org.example.fineasy.exception;
+package org.example.fineasy.utils;
 
 public class TransactionNotFoundException extends Exception{
     public TransactionNotFoundException(String message) {
