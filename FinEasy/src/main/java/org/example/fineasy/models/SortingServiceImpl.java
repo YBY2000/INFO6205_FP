@@ -1,25 +1,18 @@
 package org.example.fineasy.models;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.example.fineasy.models.Transaction;
 import org.example.fineasy.service.SortingService;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class SortingServiceImpl implements SortingService<Transaction> {
 
+
     @Override
-    public void sort(List<Transaction> list, String criterion) {
-        //method 1
+    public void sort(ObservableList<Transaction> bag, String criterion) {
         Comparator<Transaction> comparator = getComparator(criterion);
-        if (comparator != null) {
-            Collections.sort(list, comparator);
-        }
-        //method 2
-//        quickSort(list, 0, list.size() - 1, getComparator(criterion));
+        bag.sort(comparator);
     }
 
     //method 1

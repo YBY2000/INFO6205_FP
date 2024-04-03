@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Update the way of generate ID 03">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/SortingServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/SortingServiceImp.java" beforeDir="false" />
+    <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Add Sorting function">
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/LinkedBag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/LinkedBag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/SortingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/SortingServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/service/SortingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/service/SortingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/mainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/mainView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,8 +131,17 @@
       <workItem from="1711483370626" duration="311000" />
       <workItem from="1712119363517" duration="766000" />
       <workItem from="1712146938842" duration="1218000" />
-      <workItem from="1712148162461" duration="1310000" />
+      <workItem from="1712148162461" duration="2360000" />
     </task>
+    <task id="LOCAL-00001" summary="Add Sorting function">
+      <option name="closed" value="true" />
+      <created>1712150039631</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712150039631</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -168,6 +174,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add Sorting function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Sorting function" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
