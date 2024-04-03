@@ -12,7 +12,6 @@ import static org.example.fineasy.entity.OperationType.DELETE;
 /**
  * The class to manage all data in the system
  * It is the singleton that prevent from multiple access
- *
  * Add transaction: call addTransaction(Transaction transaction), add record to list and BST
  * Delete transaction: call deleteTransaction(String transactionId), delete record from list, TODO: delete record in BST
  * Modify transaction: TODO: use modifyTransaction(String transactionId, Transaction newTransactionData) to update transaction, (only detail data change, has no influence to BST)
@@ -119,7 +118,10 @@ public class DataManagement {
     } // end undoLastAction
 
 
-    // 打印所有交易记录，方便调试
+    /**
+     * Print all transactions
+     * this method is used for testing of system
+     */
     public void printTransactions() {
         for (Transaction transaction : transactionList) {
             System.out.println(transaction);

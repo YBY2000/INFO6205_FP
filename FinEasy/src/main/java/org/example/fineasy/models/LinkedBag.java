@@ -8,11 +8,7 @@ import java.util.NoSuchElementException;
 /**
  A class of bags whose entries are stored in a chain of linked nodes.
  The bag is never full.
-
- INCOMPLETE DEFINITION; includes definitions for the methods add,
- toArray, isEmpty, and getCurrentSize.
  */
-
 public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
 {
     private Node firstNode;       // Reference to first node
@@ -23,10 +19,12 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
         private T    data; // Entry in bag
         private Node next; // Link to next node
 
+
         private Node(T dataPortion)
         {
             this(dataPortion, null);
         } // end constructor
+
 
         private Node(T dataPortion, Node nextNode)
         {
@@ -34,10 +32,12 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
             next = nextNode;
         } // end constructor
 
+
         private T getData()
         {
             return data;
         } // end getData
+
 
         private void setData(T newData)
         {
@@ -45,11 +45,13 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
         } // end setData
     } // end Node
 
+
     public LinkedBag()
     {
         firstNode = null;
         numberOfEntries = 0;
     } // end default constructor
+
 
     /** Adds a new entry to this bag.
      @param newEntry  The object to be added as a new entry.
@@ -89,12 +91,14 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
         // if you call Arrays.copyOf
     } // end toArray
 
+
     /** Sees whether this bag is empty.
      @return  True if the bag is empty, or false if not. */
     public boolean isEmpty()
     {
         return numberOfEntries == 0;
     } // end isEmpty
+
 
     /** Gets the number of entries currently in this bag.
      @return  The integer number of entries currently in the bag. */
@@ -138,9 +142,13 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
         return result;
     } // end remove
 
-    // Locates a given entry within this bag.
-    // Returns a reference to the node containing the entry, if located,
-    // or null otherwise.
+
+    /**
+     * Locates a given entry within this bag.
+     *
+     * @param anEntry The entry to be searched
+     * @return a reference to the node containing the entry, if located, or null otherwise.
+     */
     private Node getReferenceTo(T anEntry) {
         boolean found = false;
         Node currentNode = firstNode;
@@ -154,12 +162,14 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
         return currentNode;
     } // end getReferenceTo
 
+
     /** Removes all entries from this bag. */
     public void clear() {
         while (!isEmpty()) {
             remove();
         }
     } // end clear
+
 
     /** Counts the number of times a given entry appears in this bag.
      @param anEntry  The entry to be counted.
@@ -207,6 +217,7 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
         return result;
     }  // end equals
 
+
     /** Duplicate all the items in a bag.
      * @return True if the duplication is possible.
      */
@@ -220,6 +231,7 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
         return success;
     }  // end duplicateAll
 
+
     /** Remove all duplicate items from a bag
      */
     public void removeDuplicates() {
@@ -228,6 +240,7 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
 
         return;
     }  // end removeDuplicates
+
 
     @Override
     public Iterator<T> iterator() {
