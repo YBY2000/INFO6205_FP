@@ -58,19 +58,10 @@ public class HelloController {
         // Setup column bindings
         setupColumnBindings();
 
+        setupSortComboBox();
+
         // Bind TableView to observable list
         updateTransactionsView();
-
-        // Sorting method is not selected by default during initialization
-        sortComboBox.getSelectionModel().clearSelection();
-
-        // Sets the sort of selected event handler
-        sortComboBox.setOnAction(event -> {
-            String selectedCriterion = sortComboBox.getSelectionModel().getSelectedItem();
-            if (selectedCriterion != null && !selectedCriterion.isEmpty()) {
-                sortTransactions(selectedCriterion);
-            }
-        });
 
     } // end initialize
 
@@ -154,6 +145,21 @@ public class HelloController {
 
     } // end handleUndoButtonClick
 
+    /**
+     * Set up the ComboBox for sorting with an event handler.
+     */
+    private void setupSortComboBox() {
+        sortComboBox.setItems(FXCollections.observableArrayList("Amount", "Date", "Type", "Category"));
+        sortComboBox.getSelectionModel().clearSelection(); // Clear the selection to allow placeholder text
+
+        // Sets the sort on selection event handler
+        sortComboBox.setOnAction(event -> {
+            String selectedCriterion = sortComboBox.getSelectionModel().getSelectedItem();
+            if (selectedCriterion != null && !selectedCriterion.isEmpty()) {
+                sortTransactions(selectedCriterion);
+            }
+        });
+    }
     private void sortTransactions(String criterion) {
         // Step 1: Transform ObservableList to LinkedBag
         LinkedBag<Transaction> linkedBag = new LinkedBag<>();

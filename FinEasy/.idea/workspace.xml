@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Update addSampleTransactions method">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/VisualizationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/VisualizationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/visualView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/visualView.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Update file's name" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -139,7 +135,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712121418236</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Update file's name">
+      <option name="closed" value="true" />
+      <created>1712242642766</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712242642766</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -175,7 +179,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update the way of generate ID" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update the way of generate ID" />
+    <MESSAGE value="Update file's name" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update file's name" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
