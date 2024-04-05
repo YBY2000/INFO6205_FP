@@ -1,67 +1,45 @@
 package org.example.fineasy.models;
 
-import javafx.collections.ObservableList;
 import org.example.fineasy.service.SortingService;
-
 import java.util.Comparator;
 import java.util.List;
 
-public class SortingServiceImpl implements SortingService<Transaction> {
-
+public class SortingServiceImpl<T extends Comparable<? super T>> implements SortingService<T> {
 
     @Override
-    public void sort(ObservableList<Transaction> bag, String criterion) {
-        Comparator<Transaction> comparator = getComparator(criterion);
-        bag.sort(comparator);
-    }
-
-    //method 1
-    private Comparator<Transaction> getComparator(String criterion) {
-        switch (criterion) {
-            case "Amount":
-                return Comparator.comparing(Transaction::getAmount);
-            case "Date":
-                return Comparator.comparing(Transaction::getDate);
-            case "Type":
-                return Comparator.comparing(Transaction::getType);
-            case "Category":
-                return Comparator.comparing(Transaction::getCategory);
-            default:
-                return null;
+    public void sort(List<T> list, Comparator<T> comparator) {
+        if (comparator != null) {
+            quickSort(list, 0, list.size() - 1, comparator);
         }
     }
-    //method 2
-    private void quickSort(List<Transaction> list, int begin, int end, Comparator<Transaction> comparator) {
+
+    //QuickSort
+    private void quickSort(List<T> list, int begin, int end, Comparator<T> comparator) {
         if (begin < end) {
             int partitionIndex = partition(list, begin, end, comparator);
-
-            quickSort(list, begin, partitionIndex-1, comparator);
-            quickSort(list, partitionIndex+1, end, comparator);
+            quickSort(list, begin, partitionIndex - 1, comparator);
+            quickSort(list, partitionIndex + 1, end, comparator);
         }
     }
 
-    private int partition(List<Transaction> list, int begin, int end, Comparator<Transaction> comparator) {
-        Transaction pivot = list.get(end);
-        int i = (begin-1);
+    private int partition(List<T> list, int begin, int end, Comparator<T> comparator) {
+        T pivot = list.get(end);
+        int i = begin - 1;
 
         for (int j = begin; j < end; j++) {
             if (comparator.compare(list.get(j), pivot) <= 0) {
                 i++;
 
-                Transaction swapTemp = list.get(i);
+                T swapTemp = list.get(i);
                 list.set(i, list.get(j));
                 list.set(j, swapTemp);
             }
         }
 
-        Transaction swapTemp = list.get(i+1);
-        list.set(i+1, list.get(end));
+        T swapTemp = list.get(i + 1);
+        list.set(i + 1, list.get(end));
         list.set(end, swapTemp);
 
-        return i+1;
+        return i + 1;
     }
-
-    //method1
-
 }
-

@@ -14,7 +14,6 @@ import org.example.fineasy.models.DataManagement;
 import org.example.fineasy.models.Transaction;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Comparator;
 
 import static org.example.fineasy.utils.LoadNewScene.loadScene;
@@ -54,7 +53,8 @@ public class HelloController {
      * Initialize the main view
      */
     public void initialize() {
-        sortingService = new SortingServiceImpl();
+        sortingService = new SortingServiceImpl<Transaction>();
+
         // Setup column bindings
         setupColumnBindings();
 
@@ -160,52 +160,34 @@ public class HelloController {
             }
         });
     }
+
+
+    // 在HelloController类中
     private void sortTransactions(String criterion) {
-        // Step 1: Transform ObservableList to LinkedBag
-        LinkedBag<Transaction> linkedBag = new LinkedBag<>();
-        for (Transaction transaction : transactionTable.getItems()) {
-            linkedBag.add(transaction);
-        }
-
-        // Step 2: Define Comparator
-        Comparator<Transaction> comparator = getTransactionComparator(criterion);
-
-        // Step 3: use sort method in LinkedBag
-        if (comparator != null) {
-            linkedBag.sort(comparator);
-        }
-
-        // Step 4: Transform LinkedBag back to ObservableList
-        ObservableList<Transaction> sortedList = FXCollections.observableArrayList();
-        for (Transaction transaction : linkedBag) {
-            sortedList.add(transaction);
-        }
-
-        // Step 5: update TableView
-        transactionTable.setItems(sortedList);
-        transactionTable.refresh();
+        ObservableList<Transaction> observableList = transactionTable.getItems();
+        Comparator<Transaction> comparator = getComparatorForCriterion(criterion);
+        sortingService.sort(observableList, comparator); // 使用Comparator进行排序
+        transactionTable.setItems(observableList); // 用排序后的列表更新TableView
+        transactionTable.refresh(); // 刷新表格视图
     }
 
-    //Returns the corresponding Comparator according to the sorting criteria
-    private Comparator<Transaction> getTransactionComparator(String criterion) {
+    private Comparator<Transaction> getComparatorForCriterion(String criterion) {
         switch (criterion) {
             case "Amount":
-                return Comparator.comparing(Transaction::getAmount);
+                return Transaction.getAmountComparator();
             case "Date":
-                return Comparator.comparing(Transaction::getDate);
+                return Transaction.getDateComparator();
             case "Type":
-                return Comparator.comparing(Transaction::getType);
+                return Transaction.getTypeComparator();
             case "Category":
-                return Comparator.comparing(Transaction::getCategory);
+                return Transaction.getCategoryComparator();
             default:
-                return null; // 如果无法识别标准，返回null
+                throw new IllegalArgumentException("Unrecognized sorting criteria: " + criterion);
         }
     }
-//    private void sortTransactions(String criterion) {
-//        ObservableList<Transaction> observableList = transactionTable.getItems();
-//        sortingService.sort(observableList, criterion);
-//        transactionTable.setItems(observableList); // 重新设置排序后的列表
-//        transactionTable.refresh(); // 刷新表格显示
-//    }
-} // end HelloController
+
+
+
+
+}
 

@@ -3,10 +3,11 @@ package org.example.fineasy.models;
 import javafx.beans.property.*;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
 
-public class Transaction{
+public class Transaction implements Comparable<Transaction>{
     private final StringProperty id;
     private final StringProperty type;
     private final DoubleProperty amount;
@@ -103,6 +104,26 @@ public class Transaction{
                 id, type, amount, date, category, comment);
     } // end toString
 
+    public static Comparator<Transaction> getAmountComparator() {
+        return Comparator.comparing(Transaction::getAmount);
+    }
+
+    public static Comparator<Transaction> getDateComparator() {
+        return Comparator.comparing(Transaction::getDate);
+    }
+
+    public static Comparator<Transaction> getTypeComparator() {
+        return Comparator.comparing(Transaction::getType);
+    }
+
+    public static Comparator<Transaction> getCategoryComparator() {
+        return Comparator.comparing(Transaction::getCategory);
+    }
+    @Override
+    public int compareTo(Transaction other) {
+        //Compare Amount
+        return Double.compare(this.getAmount(), other.getAmount());
+    }
 } // class Transaction
 
 
