@@ -7,6 +7,7 @@ import org.example.fineasy.utils.ShowDialog;
 import org.example.fineasy.utils.TransactionNotFoundException;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import static org.example.fineasy.entity.OperationType.ADD;
 import static org.example.fineasy.entity.OperationType.DELETE;
@@ -126,9 +127,11 @@ public class DataManagement {
                 }
                 case DELETE -> {
                     // the latest operation is DELETE, then add the latest deleted transaction
+                    System.out.println(lastOperation.transactionPosition());
                     transactionList.add(lastOperation.transactionPosition(), transaction);
                     transactionsObservable.add(transaction);
                     bst.insert(transaction);
+//                    System.out.println(transactionList);
                 }
                 // TODO: Handle EDIT case as needed
             }

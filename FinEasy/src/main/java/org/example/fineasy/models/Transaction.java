@@ -98,12 +98,6 @@ public class Transaction implements Comparable<Transaction>{
     }
 
 
-    @Override
-    public String toString() {
-        return String.format("Transaction{id='%s', type='%s', amount=%.2f, date='%s', category='%s', comment='%s'}",
-                id, type, amount, date, category, comment);
-    } // end toString
-
     public static Comparator<Transaction> getAmountComparator() {
         return Comparator.comparing(Transaction::getAmount);
     }
@@ -124,6 +118,20 @@ public class Transaction implements Comparable<Transaction>{
         //Compare Amount
         return Double.compare(this.getAmount(), other.getAmount());
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Transaction[id=%s, type=%s, amount=%.2f, category=%s, comment=%s, date=%s]",
+                getId(),
+                getType(),
+                getAmount(),
+                getCategory(),
+                getComment(),
+                getDate().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        );
+    }
+
 } // class Transaction
 
 

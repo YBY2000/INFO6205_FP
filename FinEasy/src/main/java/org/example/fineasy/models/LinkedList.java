@@ -234,6 +234,21 @@ public class LinkedList<T> implements Iterable<T> {
             }
         };
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        Node current = firstNode;
+        while (current != null) {
+            sb.append(current.data);
+            if (current.next != null) {
+                sb.append(", ");
+            }
+            current = current.next;
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 
     private class Node {
         private T data; // Entry in bag
