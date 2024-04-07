@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Add setupSortComboBox in HelloController">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/LinkedList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/DataManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/DataManagement.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/LinkedBag.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/service/BagInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/service/ListInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/OperationRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/OperationRecord.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

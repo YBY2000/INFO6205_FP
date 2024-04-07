@@ -79,11 +79,10 @@ public class DataManagement {
      * @param transaction The Transaction object to add
      */
     public void addTransaction(Transaction transaction) {
+        undoStack.push(new OperationRecord(ADD, 0, transaction));
         transactionList.add(transaction);
         transactionsObservable.add(transaction);
         bst.insert(transaction);
-        undoStack.push(new OperationRecord(ADD, transaction));
-//        printTransactions();
     } // end addTransaction
 
 
@@ -97,10 +96,11 @@ public class DataManagement {
 
         Transaction transactionToDelete = searchTransactionById(transactionId);
         if (transactionToDelete != null) {
+            int targetPosition = transactionList.getPosition(transactionToDelete);
             transactionsObservable.remove(transactionToDelete);
-            transactionList.remove(transactionList.getPosition(transactionToDelete));
+            transactionList.remove(targetPosition);
             bst.delete(transactionToDelete);
-            undoStack.push(new OperationRecord(DELETE, transactionToDelete));
+            undoStack.push(new OperationRecord(DELETE, targetPosition, transactionToDelete));
         } else {
             String errMsg = "Transaction with ID " + transactionId + " not found.";
             ShowDialog.showAlert("Error", errMsg, Alert.AlertType.ERROR);
@@ -126,7 +126,7 @@ public class DataManagement {
                 }
                 case DELETE -> {
                     // the latest operation is DELETE, then add the latest deleted transaction
-                    transactionList.add(transaction);
+                    transactionList.add(lastOperation.transactionPosition(), transaction);
                     transactionsObservable.add(transaction);
                     bst.insert(transaction);
                 }
