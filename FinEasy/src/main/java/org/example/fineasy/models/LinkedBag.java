@@ -2,6 +2,7 @@ package org.example.fineasy.models;
 
 import org.example.fineasy.service.BagInterface;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -260,6 +261,92 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
                 return item;
             }
         };
+    }
+
+    /**
+     * Public sort method that sorts the LinkedBag using the specified comparator.
+     * @param comparator The comparator to determine the order of the bag elements. Can be null if T implements Comparable.
+     */
+    public void sort(Comparator<T> comparator) {
+        firstNode = mergeSort(firstNode, comparator);
+    }
+
+    /**
+     * Private recursive method to perform merge sort on the linked list.
+     * @param head The head of the linked list to sort.
+     * @param comparator The comparator to determine the order of the elements.
+     * @return The new head of the sorted linked list.
+     */
+    private Node mergeSort(Node head, Comparator<T> comparator) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        // Split list into halves
+        Node middle = getMiddle(head);
+        Node nextOfMiddle = middle.next;
+        middle.next = null;
+
+        // Recursive sort for each half
+        Node left = mergeSort(head, comparator);
+        Node right = mergeSort(nextOfMiddle, comparator);
+
+        // Merge the sorted halves
+        return sortedMerge(left, right, comparator);
+    }
+
+    /**
+     * Finds the middle node of the linked list.
+     * @param head The head of the linked list.
+     * @return The middle node.
+     */
+    private Node getMiddle(Node head) {
+        if (head == null) {
+            return head;
+        }
+
+        Node slow = head, fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+    /**
+     * Merges two sorted linked lists into one.
+     * @param a The head of the first sorted list.
+     * @param b The head of the second sorted list.
+     * @param comparator The comparator to determine the order of the elements.
+     * @return The head of the merged sorted list.
+     */
+    private Node sortedMerge(Node a, Node b, Comparator<T> comparator) {
+        Node result;
+        if (a == null) return b;
+        if (b == null) return a;
+
+        // Choose either a or b, and recur
+        if (comparator == null) {
+            // Assume T implements Comparable
+            if (((Comparable<T>)a.data).compareTo(b.data) <= 0) {
+                result = a;
+                result.next = sortedMerge(a.next, b, comparator);
+            } else {
+                result = b;
+                result.next = sortedMerge(a, b.next, comparator);
+            }
+        } else {
+            if (comparator.compare(a.data, b.data) <= 0) {
+                result = a;
+                result.next = sortedMerge(a.next, b, comparator);
+            } else {
+                result = b;
+                result.next = sortedMerge(a, b.next, comparator);
+            }
+        }
+        return result;
     }
 } // end LinkedBag
 
