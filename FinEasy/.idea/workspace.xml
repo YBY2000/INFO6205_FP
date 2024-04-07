@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Update the way of generate ID">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/AddController.java" afterDir="false" />
+    <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Add setupSortComboBox in HelloController">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,26 +51,26 @@
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/zhangjinming/Documents/GitHub/INFO6205_FP/FinEasy&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;应用程序.HelloApplication.executor&quot;: &quot;Run&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/zhangjinming/Documents/GitHub/INFO6205_FP/FinEasy",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "项目",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.JavaFX",
+    "vue.rearranger.settings.migration": "true",
+    "应用程序.HelloApplication.executor": "Run"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.fineasy.HelloApplication" />
@@ -87,6 +87,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.HelloApplication" />
+        <item itemvalue="应用程序.HelloApplication" />
         <item itemvalue="应用程序.HelloApplication" />
         <item itemvalue="应用程序.HelloApplication" />
       </list>
@@ -126,6 +128,12 @@
       <workItem from="1711483140609" duration="103000" />
       <workItem from="1711483370626" duration="311000" />
       <workItem from="1712119363517" duration="766000" />
+      <workItem from="1712158952971" duration="1702000" />
+      <workItem from="1712258417598" duration="849000" />
+      <workItem from="1712260909321" duration="2870000" />
+      <workItem from="1712287435509" duration="287000" />
+      <workItem from="1712288009402" duration="54000" />
+      <workItem from="1712291490259" duration="2369000" />
     </task>
     <task id="LOCAL-00001" summary="Update the way of generate ID">
       <option name="closed" value="true" />
@@ -135,7 +143,23 @@
       <option name="project" value="LOCAL" />
       <updated>1712121418236</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Update file's name">
+      <option name="closed" value="true" />
+      <created>1712242642766</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712242642766</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add setupSortComboBox in HelloController">
+      <option name="closed" value="true" />
+      <created>1712243146852</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712243146852</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,7 +195,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update the way of generate ID" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update the way of generate ID" />
+    <MESSAGE value="Update file's name" />
+    <MESSAGE value="Add setupSortComboBox in HelloController" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add setupSortComboBox in HelloController" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,14 +1,20 @@
 package org.example.fineasy.controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.example.fineasy.models.LinkedBag;
+import org.example.fineasy.models.SortingServiceImpl;
+import org.example.fineasy.service.SortingService;
 import org.example.fineasy.utils.ShowDialog;
 import org.example.fineasy.utils.TransactionNotFoundException;
 import org.example.fineasy.models.DataManagement;
 import org.example.fineasy.models.Transaction;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
 import static org.example.fineasy.utils.LoadNewScene.loadScene;
 
@@ -35,19 +41,28 @@ public class HelloController {
     private TableColumn<Transaction, String> commentColumn;
     @FXML
     private TableColumn<Transaction, String> idColumn;
+    @FXML
+    private ComboBox<String> sortComboBox;
+    private SortingService<Transaction> sortingService;
 
     public HelloController() {
+
     }
 
     /**
      * Initialize the main view
      */
     public void initialize() {
+        sortingService = new SortingServiceImpl<Transaction>();
+
         // Setup column bindings
         setupColumnBindings();
 
+        setupSortComboBox();
+
         // Bind TableView to observable list
         updateTransactionsView();
+
     } // end initialize
 
 
@@ -130,5 +145,49 @@ public class HelloController {
 
     } // end handleUndoButtonClick
 
-} // end HelloController
+    /**
+     * Set up the ComboBox for sorting with an event handler.
+     */
+    private void setupSortComboBox() {
+        sortComboBox.setItems(FXCollections.observableArrayList("Amount", "Date", "Type", "Category"));
+        sortComboBox.getSelectionModel().clearSelection(); // Clear the selection to allow placeholder text
+
+        // Sets the sort on selection event handler
+        sortComboBox.setOnAction(event -> {
+            String selectedCriterion = sortComboBox.getSelectionModel().getSelectedItem();
+            if (selectedCriterion != null && !selectedCriterion.isEmpty()) {
+                sortTransactions(selectedCriterion);
+            }
+        });
+    }
+
+
+    // 在HelloController类中
+    private void sortTransactions(String criterion) {
+        ObservableList<Transaction> observableList = transactionTable.getItems();
+        Comparator<Transaction> comparator = getComparatorForCriterion(criterion);
+        sortingService.sort(observableList, comparator); // 使用Comparator进行排序
+        transactionTable.setItems(observableList); // 用排序后的列表更新TableView
+        transactionTable.refresh(); // 刷新表格视图
+    }
+
+    private Comparator<Transaction> getComparatorForCriterion(String criterion) {
+        switch (criterion) {
+            case "Amount":
+                return Transaction.getAmountComparator();
+            case "Date":
+                return Transaction.getDateComparator();
+            case "Type":
+                return Transaction.getTypeComparator();
+            case "Category":
+                return Transaction.getCategoryComparator();
+            default:
+                throw new IllegalArgumentException("Unrecognized sorting criteria: " + criterion);
+        }
+    }
+
+
+
+
+}
 
