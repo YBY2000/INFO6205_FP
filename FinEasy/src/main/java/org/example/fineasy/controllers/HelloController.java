@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.example.fineasy.models.LinkedBag;
+//import org.example.fineasy.models.LinkedBag;
 import org.example.fineasy.models.SortingServiceImpl;
 import org.example.fineasy.service.SortingService;
 import org.example.fineasy.utils.ShowDialog;
@@ -110,6 +110,7 @@ public class HelloController {
      * It will delete the row that user selected
      * throws exception when no row selected or transaction not found
      */
+    @SuppressWarnings("ClassEscapesDefinedScope")
     @FXML
     public void handleDeleteButtonClick() throws TransactionNotFoundException {
         Transaction selectedTransaction = transactionTable.getSelectionModel().getSelectedItem();
