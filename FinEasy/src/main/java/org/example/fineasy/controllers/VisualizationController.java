@@ -70,7 +70,7 @@ public class VisualizationController {
 
 
     @FXML
-    private void navigateToMainView(ActionEvent event) {
+    private void navigateToMainView() {
         loadScene("/org/example/fineasy/mainView.fxml", btnBack);
     }
 }

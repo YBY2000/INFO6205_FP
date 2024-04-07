@@ -5,7 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import org.example.fineasy.models.LinkedBag;
 import org.example.fineasy.models.SortingServiceImpl;
 import org.example.fineasy.service.SortingService;
 import org.example.fineasy.utils.ShowDialog;
@@ -53,7 +52,7 @@ public class HelloController {
      * Initialize the main view
      */
     public void initialize() {
-        sortingService = new SortingServiceImpl<Transaction>();
+        sortingService = new SortingServiceImpl<>();
 
         // Setup column bindings
         setupColumnBindings();
@@ -110,6 +109,7 @@ public class HelloController {
      * It will delete the row that user selected
      * throws exception when no row selected or transaction not found
      */
+    @SuppressWarnings("ClassEscapesDefinedScope")
     @FXML
     public void handleDeleteButtonClick() throws TransactionNotFoundException {
         Transaction selectedTransaction = transactionTable.getSelectionModel().getSelectedItem();
@@ -166,24 +166,19 @@ public class HelloController {
     private void sortTransactions(String criterion) {
         ObservableList<Transaction> observableList = transactionTable.getItems();
         Comparator<Transaction> comparator = getComparatorForCriterion(criterion);
-        sortingService.sort(observableList, comparator); // 使用Comparator进行排序
-        transactionTable.setItems(observableList); // 用排序后的列表更新TableView
-        transactionTable.refresh(); // 刷新表格视图
+        sortingService.sort(observableList, comparator); // use Comparator to sort
+        transactionTable.setItems(observableList); // update the TableView after sorting
+        transactionTable.refresh(); // refresh the view
     }
 
     private Comparator<Transaction> getComparatorForCriterion(String criterion) {
-        switch (criterion) {
-            case "Amount":
-                return Transaction.getAmountComparator();
-            case "Date":
-                return Transaction.getDateComparator();
-            case "Type":
-                return Transaction.getTypeComparator();
-            case "Category":
-                return Transaction.getCategoryComparator();
-            default:
-                throw new IllegalArgumentException("Unrecognized sorting criteria: " + criterion);
-        }
+        return switch (criterion) {
+            case "Amount" -> Transaction.getAmountComparator();
+            case "Date" -> Transaction.getDateComparator();
+            case "Type" -> Transaction.getTypeComparator();
+            case "Category" -> Transaction.getCategoryComparator();
+            default -> throw new IllegalArgumentException("Unrecognized sorting criteria: " + criterion);
+        };
     }
 
 

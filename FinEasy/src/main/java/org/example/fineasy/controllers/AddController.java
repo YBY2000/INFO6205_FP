@@ -113,16 +113,15 @@ public class AddController {
      * @return The generated id
      */
     private String generateTransactionId() {
-        // 初始假设的最大ID，确保新ID会大于所有现有ID
+        // the maximum default id is 0, and make sure the new id larger than any existing ones
         int maxId = 0;
 
-        // 遍历observable列表中的所有交易以找到当前的最大ID
+        // go through observable list and find the largest id
         for (Transaction transaction : transactionsObservable) {
             int currentId;
             try {
                 currentId = Integer.parseInt(transaction.getId());
             } catch (NumberFormatException e) {
-                // 如果转换失败，跳过此ID
                 continue;
             }
 
@@ -135,6 +134,6 @@ public class AddController {
         return String.valueOf(maxId + 1);
     }
 
-    private ObservableList<Transaction> transactionsObservable = DataManagement.getInstance().getTransactionsObservable();
+    private final ObservableList<Transaction> transactionsObservable = DataManagement.getInstance().getTransactionsObservable();
 
 }

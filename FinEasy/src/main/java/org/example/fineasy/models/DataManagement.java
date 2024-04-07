@@ -82,7 +82,6 @@ public class DataManagement {
         transactionsObservable.add(transaction);
         bst.insert(transaction);
         undoStack.push(new OperationRecord(ADD, transaction));
-//        printTransactions();
     } // end addTransaction
 
 
@@ -113,6 +112,7 @@ public class DataManagement {
      * @throws TransactionNotFoundException If there's an issue reverting the last operation, such as not finding the transaction to undo delete.
      */
     public void undoLastAction() throws TransactionNotFoundException {
+        System.out.println("------------"+undoStack);
         if (!undoStack.isEmpty()) {
             OperationRecord lastOperation = undoStack.pop();
             Transaction transaction = lastOperation.transaction();

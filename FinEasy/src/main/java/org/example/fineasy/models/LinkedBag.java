@@ -206,43 +206,6 @@ public final class LinkedBag<T> implements BagInterface<T>, Iterable<T>
     } // end contains
 
 
-    /** Check to see if two bags are equals.
-     * @param aBag Another object to check this bag against.
-     * @return True if the two bags contain the same objects with the same frequencies.
-     */
-    public boolean equals(LinkedBag<T> aBag) {
-        boolean result = false; // result of comparison of bags
-
-        // COMPLETE THIS METHOD
-
-        return result;
-    }  // end equals
-
-
-    /** Duplicate all the items in a bag.
-     * @return True if the duplication is possible.
-     */
-    public boolean duplicateAll() {
-        boolean success = true; // should always return true
-        // if there is a problem allocating nodes
-        // an exception will be thrown
-
-        // COMPLETE THIS METHOD
-
-        return success;
-    }  // end duplicateAll
-
-
-    /** Remove all duplicate items from a bag
-     */
-    public void removeDuplicates() {
-
-        // COMPLETE THIS METHOD
-
-        return;
-    }  // end removeDuplicates
-
-
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {

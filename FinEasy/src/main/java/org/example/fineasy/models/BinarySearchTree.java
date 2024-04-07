@@ -32,7 +32,7 @@ class BinarySearchTree {
         return root;
     }
 
-    // 按ID搜索
+    // use id to search
     public Transaction search(String id) {
         return searchRec(root, id);
     }
@@ -47,7 +47,7 @@ class BinarySearchTree {
         return searchRec(root.right, id);
     }
 
-    // 在BinarySearchTree.java中添加
+    // add in BinarySearchTree.java
     public void delete(Transaction data) {
         root = deleteRec(root, data.getId());
     }
@@ -60,13 +60,13 @@ class BinarySearchTree {
         else if (id.compareTo(root.data.getId()) > 0)
             root.right = deleteRec(root.right, id);
         else {
-            // 节点只有一个子节点或无子节点
+            // only one child or no child
             if (root.left == null)
                 return root.right;
             else if (root.right == null)
                 return root.left;
 
-            // 有两个子节点的节点
+            // root that have two children
             root.data = minValue(root.right);
             root.right = deleteRec(root.right, root.data.getId());
         }
