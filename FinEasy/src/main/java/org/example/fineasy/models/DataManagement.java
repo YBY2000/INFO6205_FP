@@ -7,6 +7,7 @@ import org.example.fineasy.utils.ShowDialog;
 import org.example.fineasy.utils.TransactionNotFoundException;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 import static org.example.fineasy.entity.OperationType.ADD;
 import static org.example.fineasy.entity.OperationType.DELETE;
@@ -23,14 +24,15 @@ import static org.example.fineasy.entity.OperationType.DELETE;
 public class DataManagement {
     private static DataManagement instance; // Static instance variable
 
-    private final LinkedBag<Transaction> transactionList;
+//    private final LinkedBag<Transaction> transactionList;
+    private final LinkedList<Transaction> transactionList;
     private final UndoStack<OperationRecord> undoStack;
     private final BinarySearchTree bst;
     private final ObservableList<Transaction> transactionsObservable = FXCollections.observableArrayList();
 
     // Private constructor
     private DataManagement() {
-        this.transactionList = new LinkedBag<>();
+        this.transactionList = new LinkedList<>();
         this.undoStack = new UndoStack<>();
         this.bst = new BinarySearchTree();
     } // end constructor
@@ -78,10 +80,10 @@ public class DataManagement {
      * @param transaction The Transaction object to add
      */
     public void addTransaction(Transaction transaction) {
+        undoStack.push(new OperationRecord(ADD, 0, transaction));
         transactionList.add(transaction);
         transactionsObservable.add(transaction);
         bst.insert(transaction);
-        undoStack.push(new OperationRecord(ADD, transaction));
     } // end addTransaction
 
 
@@ -95,10 +97,11 @@ public class DataManagement {
 
         Transaction transactionToDelete = searchTransactionById(transactionId);
         if (transactionToDelete != null) {
+            int targetPosition = transactionList.getPosition(transactionToDelete);
             transactionsObservable.remove(transactionToDelete);
-            transactionList.remove(transactionToDelete);
+            transactionList.remove(targetPosition);
             bst.delete(transactionToDelete);
-            undoStack.push(new OperationRecord(DELETE, transactionToDelete));
+            undoStack.push(new OperationRecord(DELETE, targetPosition, transactionToDelete));
         } else {
             String errMsg = "Transaction with ID " + transactionId + " not found.";
             ShowDialog.showAlert("Error", errMsg, Alert.AlertType.ERROR);
@@ -119,15 +122,17 @@ public class DataManagement {
             switch (lastOperation.operationType()) {
                 case ADD -> {
                     // the latest operation is ADD, then delete the latest added transaction
-                    transactionList.remove(transaction);
+                    transactionList.remove(transactionList.getPosition(transaction));
                     transactionsObservable.remove(transaction);
                     bst.delete(transaction);
                 }
                 case DELETE -> {
                     // the latest operation is DELETE, then add the latest deleted transaction
-                    transactionList.add(transaction);
+                    System.out.println(lastOperation.transactionPosition());
+                    transactionList.add(lastOperation.transactionPosition(), transaction);
                     transactionsObservable.add(transaction);
                     bst.insert(transaction);
+//                    System.out.println(transactionList);
                 }
                 // TODO: Handle EDIT case as needed
             }
@@ -142,34 +147,4 @@ public class DataManagement {
     public Transaction searchTransactionById(String id) {
         return bst.search(id);
     } // end searchTransactionById
-
-
-    // TODO: modify transaction
-    // TODO: sorting
 } // end DataManagement
-
-
-
-
-//    public void modifyTransaction(String transactionId, Transaction newTransactionData) throws TransactionNotFoundException {
-//        boolean found = false;
-//        for (int i = 0; i < transactions.size(); i++) {
-//            if (transactions.get(i).getId().equals(transactionId)) {
-//                found = true;
-//                Transaction oldTransaction = transactions.get(i);
-//                bst.delete(oldTransaction); // 先删除旧节点
-//                bst.insert(newTransactionData); // 再插入新节点
-//                transactions.set(i, newTransactionData);
-//                undoStack.push(() -> {
-//                    transactions.set(transactions.indexOf(newTransactionData), oldTransaction);
-//                    bst.delete(newTransactionData); // 撤销时也要维护BST的一致性
-//                    bst.insert(oldTransaction);
-//                });
-//                break;
-//            }
-//        }
-//        if (!found) {
-//            throw new TransactionNotFoundException("Transaction with ID " + transactionId + " not found.");
-//        }
-//    }
-

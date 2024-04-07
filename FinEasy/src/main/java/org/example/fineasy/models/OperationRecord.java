@@ -9,4 +9,4 @@ import org.example.fineasy.entity.OperationType;
  * @param operationType The type of user operation
  * @param transaction The transaction object that the operation performed on
  */
-public record OperationRecord(OperationType operationType, Transaction transaction) { }
+public record OperationRecord(OperationType operationType, Integer transactionPosition, Transaction transaction) { }
