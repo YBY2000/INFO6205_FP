@@ -1,7 +1,9 @@
 package org.example.fineasy.controllers;
 
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -11,6 +13,7 @@ import org.example.fineasy.utils.ShowDialog;
 import org.example.fineasy.utils.TransactionNotFoundException;
 import org.example.fineasy.models.DataManagement;
 import org.example.fineasy.models.Transaction;
+import org.example.fineasy.models.BinarySearchTree;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -42,7 +45,10 @@ public class HelloController {
     private TableColumn<Transaction, String> idColumn;
     @FXML
     private ComboBox<String> sortComboBox;
+    @FXML
+    private TextField searchTextField;
     private SortingService<Transaction> sortingService;
+    private BinarySearchTree<Transaction> binarySearchTree;
 
     public HelloController() {
 
@@ -53,6 +59,7 @@ public class HelloController {
      */
     public void initialize() {
         sortingService = new SortingServiceImpl<>();
+        binarySearchTree = DataManagement.getInstance().getBinarySearchTree();
 
         // Setup column bindings
         setupColumnBindings();
@@ -162,13 +169,26 @@ public class HelloController {
     }
 
 
-    // 在HelloController类中
+    /**
+     * Sorts transactions based on the specified criterion or performs a search if the criterion is "Search".
+     *
+     * @param criterion The criterion to sort by or "Search" to perform a search.
+     */
     private void sortTransactions(String criterion) {
-        ObservableList<Transaction> observableList = transactionTable.getItems();
-        Comparator<Transaction> comparator = getComparatorForCriterion(criterion);
-        sortingService.sort(observableList, comparator); // use Comparator to sort
-        transactionTable.setItems(observableList); // update the TableView after sorting
-        transactionTable.refresh(); // refresh the view
+        String selectedCriterion = sortComboBox.getSelectionModel().getSelectedItem();
+        if (selectedCriterion != null && !selectedCriterion.isEmpty()) {
+            ObservableList<Transaction> observableList;
+            if (selectedCriterion.equals("Search")) {
+                String keyword = searchTextField.getText(); // Get the search keyword
+                observableList = FXCollections.observableArrayList(binarySearchTree.searchByKeyword(keyword)); // Call the search method
+            } else {
+                observableList = transactionTable.getItems();
+                Comparator<Transaction> comparator = getComparatorForCriterion(criterion);
+                sortingService.sort(observableList, comparator); // Use Comparator to sort
+            }
+            transactionTable.setItems(observableList); // Update the TableView after sorting or searching
+            transactionTable.refresh(); // Refresh the view
+        }
     }
 
     private Comparator<Transaction> getComparatorForCriterion(String criterion) {
@@ -182,7 +202,16 @@ public class HelloController {
     }
 
 
-
-
+    @FXML
+    public void handleSearchButtonAction(ActionEvent event) {
+        String keyword = searchTextField.getText();
+        if (!keyword.isEmpty()) {
+            List<Transaction> searchResult = binarySearchTree.searchByKeyword(keyword);
+            ObservableList<Transaction> observableSearchResult = FXCollections.observableArrayList(searchResult);
+            transactionTable.setItems(observableSearchResult);
+        } else {
+            updateTransactionsView();
+        }
+    }
 }
 

@@ -116,7 +116,9 @@ public class Transaction implements Comparable<Transaction>{
     @Override
     public int compareTo(Transaction other) {
         //Compare Amount
-        return Double.compare(this.getAmount(), other.getAmount());
+        int thisId = Integer.parseInt(this.getId());
+        int otherId = Integer.parseInt(other.getId());
+        return Integer.compare(thisId, otherId);
     }
 
     @Override

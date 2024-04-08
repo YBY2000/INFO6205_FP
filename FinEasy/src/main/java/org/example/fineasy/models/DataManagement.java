@@ -9,6 +9,7 @@ import org.example.fineasy.utils.TransactionNotFoundException;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+
 import static org.example.fineasy.entity.OperationType.ADD;
 import static org.example.fineasy.entity.OperationType.DELETE;
 
@@ -27,14 +28,14 @@ public class DataManagement {
 //    private final LinkedBag<Transaction> transactionList;
     private final LinkedList<Transaction> transactionList;
     private final UndoStack<OperationRecord> undoStack;
-    private final BinarySearchTree bst;
+    private final BinarySearchTree<Transaction> bst;
     private final ObservableList<Transaction> transactionsObservable = FXCollections.observableArrayList();
 
     // Private constructor
     private DataManagement() {
         this.transactionList = new LinkedList<>();
         this.undoStack = new UndoStack<>();
-        this.bst = new BinarySearchTree();
+        this.bst = new BinarySearchTree<>();
     } // end constructor
 
     // Public static method to get the instance
@@ -147,4 +148,9 @@ public class DataManagement {
     public Transaction searchTransactionById(String id) {
         return bst.search(id);
     } // end searchTransactionById
+
+    // Retrieves the single instance of BinarySearchTree used for managing transactions within the application.
+    public BinarySearchTree<Transaction> getBinarySearchTree() {
+        return this.bst;
+    }
 } // end DataManagement
