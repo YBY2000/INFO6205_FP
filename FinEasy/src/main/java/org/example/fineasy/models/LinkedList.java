@@ -288,5 +288,6 @@ public class LinkedList<T> implements Iterable<T> {
             this.next = next;
         }
 
+
     }
 }

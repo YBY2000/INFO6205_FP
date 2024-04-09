@@ -4,6 +4,7 @@ import javafx.beans.property.*;
 
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Transaction implements Comparable<Transaction>{
     private final IntegerProperty id;
@@ -130,6 +131,18 @@ public class Transaction implements Comparable<Transaction>{
         );
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return getId() == that.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 } // class Transaction
 
 
