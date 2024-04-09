@@ -17,7 +17,7 @@ import static org.example.fineasy.entity.OperationType.DELETE;
  * The class to manage all data in the system
  * It is the singleton that prevent from multiple access
  * Add transaction: call addTransaction(Transaction transaction), add record to list and BST
- * Delete transaction: call deleteTransaction(String transactionId), delete record from list, TODO: delete record in BST
+ * Delete transaction: call deleteTransaction(int transactionId), delete record from list
  * Modify transaction: TODO: use modifyTransaction(String transactionId, Transaction newTransactionData) to update transaction, (only detail data change, has no influence to BST)
  * Undo operation: call undoLastAction(), undo the latest operation
  * search transaction by id: call searchTransactionById(String id) to use BST for efficient search
@@ -90,8 +90,8 @@ public class DataManagement {
 
     /**
      * Deletes a transaction by its ID. If the transaction is found, it removes the transaction from the system,
-     * including the linked list, observable list for UI, binary search tree for efficient search,
-     * and undo stack for operation reversal.
+     * including the linked list, observable list for UI, and undo stack for operation reversal.
+     * The transaction record is also deleted from the binary search tree for efficient search.
      *
      * @param transactionId The ID of the transaction to delete.
      * @throws TransactionNotFoundException If the transaction with the specified ID cannot be found.
