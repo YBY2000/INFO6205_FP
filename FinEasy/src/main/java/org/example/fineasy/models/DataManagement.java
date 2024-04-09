@@ -89,9 +89,12 @@ public class DataManagement {
 
 
     /**
-     * Deletes a transaction by its ID. Throws TransactionNotFoundException if the transaction is not found.
+     * Deletes a transaction by its ID. If the transaction is found, it removes the transaction from the system,
+     * including the linked list, observable list for UI, binary search tree for efficient search,
+     * and undo stack for operation reversal.
+     *
      * @param transactionId The ID of the transaction to delete.
-     * @throws TransactionNotFoundException If the transaction cannot be found.
+     * @throws TransactionNotFoundException If the transaction with the specified ID cannot be found.
      */
     public void deleteTransaction(int transactionId) throws TransactionNotFoundException
     {
