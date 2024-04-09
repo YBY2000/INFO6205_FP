@@ -138,6 +138,7 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
 
     /**
      * Searches for elements in the binary search tree containing a specific keyword in their attributes.
+     *
      * @param keyword The keyword to search for.
      * @return A list of elements containing the keyword.
      */
