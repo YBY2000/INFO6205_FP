@@ -70,8 +70,10 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
 
     /**
      * Recursively deletes a node from the binary search tree.
-     * @param root The current root of the subtree.
-     * @param id The ID of the element to delete.
+     *
+     * @param root      The current root of the subtree.
+     * @param id        The ID of the element to delete.
+     * @param isDeleted An array to indicate whether the element is deleted.
      * @return The new or updated root of the subtree.
      */
     private BSTNode<T> deleteRec(BSTNode<T> root, int id, boolean[] isDeleted) {
