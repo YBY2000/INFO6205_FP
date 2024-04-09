@@ -4,19 +4,17 @@ import javafx.beans.property.*;
 
 import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.Date;
-import java.util.Locale;
 
 public class Transaction implements Comparable<Transaction>{
-    private final StringProperty id;
+    private final IntegerProperty id;
     private final StringProperty type;
     private final DoubleProperty amount;
     private final StringProperty category;
     private final StringProperty comment;
     private final ObjectProperty<LocalDate> date;
 
-    public Transaction(String id, String type, double amount, LocalDate date, String category, String comment) {
-        this.id = new SimpleStringProperty(id);
+    public Transaction(int id, String type, double amount, LocalDate date, String category, String comment) {
+        this.id = new SimpleIntegerProperty(id);
         this.type = new SimpleStringProperty(type);
         this.amount = new SimpleDoubleProperty(amount);
         this.category = new SimpleStringProperty(category);
@@ -25,15 +23,15 @@ public class Transaction implements Comparable<Transaction>{
     }
 
 
-    public String getId() {
+    public int getId() {
         return id.get();
     }
 
-    public StringProperty idProperty() {
+    public IntegerProperty idProperty() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id.set(id);
     }
 
@@ -116,9 +114,7 @@ public class Transaction implements Comparable<Transaction>{
     @Override
     public int compareTo(Transaction other) {
         //Compare Amount
-        int thisId = Integer.parseInt(this.getId());
-        int otherId = Integer.parseInt(other.getId());
-        return Integer.compare(thisId, otherId);
+        return Double.compare(this.getAmount(), other.getAmount());
     }
 
     @Override

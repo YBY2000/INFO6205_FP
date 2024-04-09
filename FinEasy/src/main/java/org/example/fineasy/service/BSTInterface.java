@@ -16,9 +16,9 @@ public interface BSTInterface<T> {
     /**
      * Deletes an element from the binary search tree.
      *
-     * @param data The element to be deleted.
+     * @param id The ID of the element to be deleted.
      */
-    void delete(T data);
+    boolean delete(int id);
 
     /**
      * Searches for an element in the binary search tree.
@@ -26,5 +26,5 @@ public interface BSTInterface<T> {
      * @param id The identifier of the element to search for.
      * @return The found element, or {@code null} if not found.
      */
-    T search(String id);
+    T search(int id);
 }

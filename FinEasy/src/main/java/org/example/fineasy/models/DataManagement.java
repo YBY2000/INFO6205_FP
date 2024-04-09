@@ -52,16 +52,16 @@ public class DataManagement {
      * Adds 10 sample transactions for testing or demonstration purposes.
      */
     public void addSampleTransactions() {
-        addTransaction(new Transaction("1", "Expense", 50.0, LocalDate.now(), "Food", "Lunch with friends"));
-        addTransaction(new Transaction("2", "Income", 1500.0, LocalDate.now(), "Education", "Monthly salary"));
-        addTransaction(new Transaction("3", "Expense", 300.0, LocalDate.now(), "Food", "New headphones"));
-        addTransaction(new Transaction("4", "Expense", 120.0, LocalDate.now(), "Education", "Weekly groceries"));
-        addTransaction(new Transaction("5", "Income", 200.0, LocalDate.now(), "Education", "Freelance project"));
-        addTransaction(new Transaction("6", "Expense", 60.0, LocalDate.now(), "Entertainment", "Cinema tickets"));
-        addTransaction(new Transaction("7", "Expense", 400.0, LocalDate.now(), "Daily", "Weekend trip"));
-        addTransaction(new Transaction("8", "Income", 250.0, LocalDate.now(), "Gift", "Birthday money"));
-        addTransaction(new Transaction("9", "Expense", 100.0, LocalDate.now(), "Daily", "Pharmacy"));
-        addTransaction(new Transaction("10", "Expense", 90.0, LocalDate.now(), "Transportation", "Programming books"));
+        addTransaction(new Transaction(1, "Expense", 50.0, LocalDate.now(), "Food", "Lunch with friends"));
+        addTransaction(new Transaction(2, "Income", 1500.0, LocalDate.now(), "Education", "Monthly salary"));
+        addTransaction(new Transaction(3, "Expense", 300.0, LocalDate.now(), "Food", "New headphones"));
+        addTransaction(new Transaction(4, "Expense", 120.0, LocalDate.now(), "Education", "Weekly groceries"));
+        addTransaction(new Transaction(5, "Income", 200.0, LocalDate.now(), "Education", "Freelance project"));
+        addTransaction(new Transaction(6, "Expense", 60.0, LocalDate.now(), "Entertainment", "Cinema tickets"));
+        addTransaction(new Transaction(7, "Expense", 400.0, LocalDate.now(), "Daily", "Weekend trip"));
+        addTransaction(new Transaction(8, "Income", 250.0, LocalDate.now(), "Gift", "Birthday money"));
+        addTransaction(new Transaction(9, "Expense", 100.0, LocalDate.now(), "Daily", "Pharmacy"));
+        addTransaction(new Transaction(10, "Expense", 90.0, LocalDate.now(), "Transportation", "Programming books"));
     }
 
     /**
@@ -93,21 +93,26 @@ public class DataManagement {
      * @param transactionId The ID of the transaction to delete.
      * @throws TransactionNotFoundException If the transaction cannot be found.
      */
-    public void deleteTransaction(String transactionId) throws TransactionNotFoundException
+    public void deleteTransaction(int transactionId) throws TransactionNotFoundException
     {
-
+        // 首先，使用transactionId在BST中进行搜索，确保事务存在
         Transaction transactionToDelete = searchTransactionById(transactionId);
         if (transactionToDelete != null) {
-            int targetPosition = transactionList.getPosition(transactionToDelete);
-            transactionsObservable.remove(transactionToDelete);
-            transactionList.remove(targetPosition);
-            bst.delete(transactionToDelete);
-            undoStack.push(new OperationRecord(DELETE, targetPosition, transactionToDelete));
+            // 如果找到了Transaction，接下来使用其ID在BST中进行删除
+            boolean isDeleted = bst.delete(transactionToDelete.getId()); // 注意这里的修改
+            if (isDeleted) {
+                int targetPosition = transactionList.getPosition(transactionToDelete);
+                transactionsObservable.remove(transactionToDelete);
+                transactionList.remove(targetPosition); // 注意这里的修改，需要确保LinkedList实现了remove(int index)方法
+                undoStack.push(new OperationRecord(DELETE, targetPosition, transactionToDelete));
+            } else {
+                throw new TransactionNotFoundException("Failed to delete the transaction from BST.");
+            }
         } else {
             String errMsg = "Transaction with ID " + transactionId + " not found.";
             ShowDialog.showAlert("Error", errMsg, Alert.AlertType.ERROR);
             throw new TransactionNotFoundException(errMsg);
-        } // end if(transactionToDelete != null) - else
+        }
     } // end deleteTransaction
 
 
@@ -125,7 +130,7 @@ public class DataManagement {
                     // the latest operation is ADD, then delete the latest added transaction
                     transactionList.remove(transactionList.getPosition(transaction));
                     transactionsObservable.remove(transaction);
-                    bst.delete(transaction);
+                    bst.delete(transaction.getId());
                 }
                 case DELETE -> {
                     // the latest operation is DELETE, then add the latest deleted transaction
@@ -145,7 +150,7 @@ public class DataManagement {
 
 
     // use BST to search
-    public Transaction searchTransactionById(String id) {
+    public Transaction searchTransactionById(int id) {
         return bst.search(id);
     } // end searchTransactionById
 

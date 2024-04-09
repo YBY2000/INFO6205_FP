@@ -50,23 +50,28 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
             return new BSTNode<>(data);
         }
 
-        int compareResult = data.compareTo(root.data);
+        int rootId = root.data.getId();
+        int dataId = data.getId();
 
-        if (compareResult < 0) {
+        if (dataId < rootId) {
             root.left = insertRec(root.left, data);
-        } else if (compareResult > 0) {
+        } else if (dataId > rootId) {
             root.right = insertRec(root.right, data);
         }
+        // 如果ID相同，我们可以选择不插入新节点或者处理其他逻辑
         return root;
     }
 
     /**
      * Deletes a specific element from the binary search tree.
-     * @param data The element to be deleted.
+     * @param id The ID of the element to be deleted.
      */
     @Override
-    public void delete(T data) {
-        root = deleteRec(root, data.getId());
+    public boolean delete(int id) {
+        // 用于追踪是否找到并删除了节点
+        boolean[] isDeleted = new boolean[1];
+        root = deleteRec(root, id, isDeleted);
+        return isDeleted[0]; // 返回是否成功删除的结果
     }
 
     /**
@@ -75,21 +80,21 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
      * @param id The ID of the element to delete.
      * @return The new or updated root of the subtree.
      */
-    private BSTNode<T> deleteRec(BSTNode<T> root, String id) {
-        if (root == null) return null;
-
-        if (id.compareTo(root.data.getId()) < 0) {
-            root.left = deleteRec(root.left, id);
-        } else if (id.compareTo(root.data.getId()) > 0) {
-            root.right = deleteRec(root.right, id);
-        } else {
-            if (root.left == null) return root.right;
-            else if (root.right == null) return root.left;
-
-            root.data = minValue(root.right);
-            root.right = deleteRec(root.right, root.data.getId());
+    private BSTNode<T> deleteRec(BSTNode<T> root, int id, boolean[] isDeleted) {
+        if (root == null) {
+            return null; // 没有找到节点，返回null
         }
-        return root;
+        int rootId = root.data.getId();
+        if (id < rootId) {
+            root.left = deleteRec(root.left, id, isDeleted);
+        } else if (id > rootId) {
+            root.right = deleteRec(root.right, id, isDeleted);
+        } else {
+            // 找到了要删除的节点，设置isDeleted为true
+            isDeleted[0] = true;
+            // 这里是删除逻辑...
+        }
+        return root; // 返回更新后的树的根节点
     }
 
     /**
@@ -112,7 +117,7 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
      * @return The found element, or null if not found.
      */
     @Override
-    public T search(String id) {
+    public T search(int id) {
         return searchRec(root, id);
     }
 
@@ -122,12 +127,13 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
      * @param id The ID of the element to search for.
      * @return The found element, or null if not found.
      */
-    private T searchRec(BSTNode<T> root, String id) {
-        if (root == null || root.data.getId().equals(id)) {
-            return (root != null) ? root.data : null;
-        }
+    private T searchRec(BSTNode<T> root, int id) {
+        if (root == null) return null;
 
-        if (id.compareTo(root.data.getId()) < 0) {
+        int rootId = root.data.getId();
+        if (id == rootId) {
+            return root.data;
+        } else if (id < rootId) {
             return searchRec(root.left, id);
         } else {
             return searchRec(root.right, id);

@@ -63,7 +63,7 @@ public class AddController {
     @FXML
     private void handleSaveAction(ActionEvent event) {
         try {
-            String id = generateTransactionId();
+            int id = generateTransactionId();
             String type = choiceType.getValue();
             double amount = Double.parseDouble(textAmount.getText().trim()); // trim() to remove leading/trailing spaces
             Transaction transaction = getTransaction(id, type, amount);
@@ -84,7 +84,7 @@ public class AddController {
      * @param amount The amount of the transaction that user input
      * @return The Transaction Object to be stored
      */
-    private Transaction getTransaction(String id, String type, double amount) {
+    private Transaction getTransaction(int id, String type, double amount) {
         LocalDate date = datePicker.getValue();
 
         // Determine the selected category from ToggleButtons
@@ -112,26 +112,19 @@ public class AddController {
      *
      * @return The generated id
      */
-    private String generateTransactionId() {
-        // the maximum default id is 0, and make sure the new id larger than any existing ones
+    private int generateTransactionId() {
         int maxId = 0;
 
         // go through observable list and find the largest id
         for (Transaction transaction : transactionsObservable) {
-            int currentId;
-            try {
-                currentId = Integer.parseInt(transaction.getId());
-            } catch (NumberFormatException e) {
-                continue;
-            }
+            int currentId = transaction.getId();
 
             if (currentId > maxId) {
                 maxId = currentId;
             }
         }
 
-        // 返回最大ID加1的值
-        return String.valueOf(maxId + 1);
+        return maxId + 1;
     }
 
     private final ObservableList<Transaction> transactionsObservable = DataManagement.getInstance().getTransactionsObservable();
