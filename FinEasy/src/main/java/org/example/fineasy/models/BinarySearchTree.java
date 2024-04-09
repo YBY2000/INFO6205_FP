@@ -153,9 +153,10 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
 
     /**
      * Recursively searches for elements containing a specific keyword.
-     * @param root The current root of the subtree.
+     *
+     * @param root    The current root of the subtree.
      * @param keyword The keyword to search for.
-     * @param result The list to store found elements.
+     * @param result  The list to store found elements.
      */
     private void searchByKeywordRec(BSTNode<T> root, String keyword, List<Transaction> result) {
         if (root == null) return;
