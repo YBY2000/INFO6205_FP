@@ -5,14 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * TODO: re-create a BinarySearchTree that can implement a quick search for particular record using keyword!!!
- * TODO: there need a interface called BSTInterface<T> in service package
- * TODO: the BinarySearchTree<T> need to implement the BSTInterface<T>
- * TODO: should write generic for both interface<T> and implementation of BinarySearchTree<T>
- * TODO: write proper javadoc for BinarySearchTree<T>
- */
-
-/**
  * A generic Binary Search Tree (BST) implementation that supports operations
  * such as insert, delete, and search for managing transaction records.
  * This class is designed to work with any type of Transaction or its subclasses,
@@ -58,7 +50,6 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
         } else if (dataId > rootId) {
             root.right = insertRec(root.right, data);
         }
-        // 如果ID相同，我们可以选择不插入新节点或者处理其他逻辑
         return root;
     }
 
@@ -68,10 +59,9 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
      */
     @Override
     public boolean delete(int id) {
-        // 用于追踪是否找到并删除了节点
         boolean[] isDeleted = new boolean[1];
         root = deleteRec(root, id, isDeleted);
-        return isDeleted[0]; // 返回是否成功删除的结果
+        return isDeleted[0];
     }
 
     /**
@@ -82,7 +72,7 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
      */
     private BSTNode<T> deleteRec(BSTNode<T> root, int id, boolean[] isDeleted) {
         if (root == null) {
-            return null; // 没有找到节点，返回null
+            return null;
         }
         int rootId = root.data.getId();
         if (id < rootId) {
@@ -90,11 +80,9 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
         } else if (id > rootId) {
             root.right = deleteRec(root.right, id, isDeleted);
         } else {
-            // 找到了要删除的节点，设置isDeleted为true
             isDeleted[0] = true;
-            // 这里是删除逻辑...
         }
-        return root; // 返回更新后的树的根节点
+        return root;
     }
 
     /**
