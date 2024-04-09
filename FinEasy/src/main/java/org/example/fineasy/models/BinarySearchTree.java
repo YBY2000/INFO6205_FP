@@ -24,6 +24,7 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
 
     /**
      * Inserts a new element into the binary search tree.
+     *
      * @param data The element to be inserted.
      */
     @Override
