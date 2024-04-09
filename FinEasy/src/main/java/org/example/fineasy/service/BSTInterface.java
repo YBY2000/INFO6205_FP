@@ -17,6 +17,7 @@ public interface BSTInterface<T> {
      * Deletes an element from the binary search tree.
      *
      * @param id The ID of the element to be deleted.
+     * @return {@code true} if the element was successfully deleted, {@code false} otherwise.
      */
     boolean delete(int id);
 
