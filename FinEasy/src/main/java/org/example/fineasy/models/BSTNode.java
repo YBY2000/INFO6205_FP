@@ -21,6 +21,5 @@ public class BSTNode<T extends Transaction> {
         this.right = null;
     }
 
-    // Getter and setter methods for data, left, and right can be added here for encapsulation.
 }
 
