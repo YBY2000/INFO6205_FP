@@ -57,7 +57,9 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
 
     /**
      * Deletes a specific element from the binary search tree.
+     *
      * @param id The ID of the element to be deleted.
+     * @return True if the element is successfully deleted, false otherwise.
      */
     @Override
     public boolean delete(int id) {
