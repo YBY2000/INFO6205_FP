@@ -34,6 +34,7 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
 
     /**
      * Recursively inserts a new node into the binary search tree.
+     *
      * @param root The current root of the subtree.
      * @param data The data to insert into the BST.
      * @return The new or updated root of the subtree.
