@@ -107,6 +107,7 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
 
     /**
      * Searches for an element in the binary search tree by its ID.
+     *
      * @param id The ID of the element to search for.
      * @return The found element, or null if not found.
      */
