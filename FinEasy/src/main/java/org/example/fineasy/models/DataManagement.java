@@ -95,15 +95,13 @@ public class DataManagement {
      */
     public void deleteTransaction(int transactionId) throws TransactionNotFoundException
     {
-        // 首先，使用transactionId在BST中进行搜索，确保事务存在
         Transaction transactionToDelete = searchTransactionById(transactionId);
         if (transactionToDelete != null) {
-            // 如果找到了Transaction，接下来使用其ID在BST中进行删除
-            boolean isDeleted = bst.delete(transactionToDelete.getId()); // 注意这里的修改
+            boolean isDeleted = bst.delete(transactionToDelete.getId());
             if (isDeleted) {
                 int targetPosition = transactionList.getPosition(transactionToDelete);
                 transactionsObservable.remove(transactionToDelete);
-                transactionList.remove(targetPosition); // 注意这里的修改，需要确保LinkedList实现了remove(int index)方法
+                transactionList.remove(targetPosition);
                 undoStack.push(new OperationRecord(DELETE, targetPosition, transactionToDelete));
             } else {
                 throw new TransactionNotFoundException("Failed to delete the transaction from BST.");
