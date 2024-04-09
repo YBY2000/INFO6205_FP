@@ -118,8 +118,9 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
 
     /**
      * Recursively searches for an element in the binary search tree by its ID.
+     *
      * @param root The current root of the subtree.
-     * @param id The ID of the element to search for.
+     * @param id   The ID of the element to search for.
      * @return The found element, or null if not found.
      */
     private T searchRec(BSTNode<T> root, int id) {
