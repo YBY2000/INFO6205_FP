@@ -1,15 +1,11 @@
 package org.example.fineasy.service;
 
-
-import org.example.fineasy.models.LinkedList;
-
 import java.util.Collection;
 import java.util.List;
 
 /**
  An interface that describes the operations of a bag of objects.
  */
-
 public interface ListInterface<T>
 {
     /**
@@ -33,14 +29,6 @@ public interface ListInterface<T>
      * @throws IndexOutOfBoundsException if the newPosition is out of range (newPosition < 1 || newPosition > size() + 1)
      */
     public boolean add(int newPosition, T newEntry);
-
-
-    /**
-     * Removes and returns the last element from this list.
-     * @return The element that was removed from the list.
-     */
-    public T remove();
-
     /**
      * Removes the element at the specified position in this list.
      * @param givenPosition The 1-based index of the element to be removed.
@@ -73,6 +61,14 @@ public interface ListInterface<T>
      */
     public boolean isEmpty();
 
+    /**
+     * Returns the 1-based position of the first occurrence of the specified element in this list,
+     * or -1 if this list does not contain the element.
+     * @param entry The element to search for.
+     * @return The 1-based position of the first occurrence of the specified element in this list, or -1 if not found.
+     */
+    public int getPosition(T entry);
+
 
     /**
      * Removes all of the elements from this list. The list will be empty after this call returns.
@@ -84,12 +80,4 @@ public interface ListInterface<T>
      * @return An array containing all of the elements in this list in proper sequence.
      */
     public T[] toArray();
-
-    /**
-     * Returns the 1-based position of the first occurrence of the specified element in this list,
-     * or -1 if this list does not contain the element.
-     * @param entry The element to search for.
-     * @return The 1-based position of the first occurrence of the specified element in this list, or -1 if not found.
-     */
-    public int getPosition(T entry);
 } // end ListInterface

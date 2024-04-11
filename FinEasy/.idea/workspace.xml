@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Add setupSortComboBox in HelloController">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/DataManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/DataManagement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/LinkedList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/LinkedList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/models/OperationRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/entity/OperationRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/service/ListInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/service/ListInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/service/StackInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/service/StackInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +34,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="CQR-Branch" />
+        <entry key="$PROJECT_DIR$/.." value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -88,11 +93,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.HelloApplication" />
-        <item itemvalue="应用程序.HelloApplication" />
-        <item itemvalue="应用程序.HelloApplication" />
-        <item itemvalue="应用程序.HelloApplication" />
-        <item itemvalue="应用程序.HelloApplication" />
+        <item itemvalue="Application.HelloApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -136,17 +137,6 @@
       <workItem from="1712287435509" duration="287000" />
       <workItem from="1712288009402" duration="54000" />
       <workItem from="1712291490259" duration="2369000" />
-      <workItem from="1712537867331" duration="250000" />
-      <workItem from="1712538188886" duration="136000" />
-      <workItem from="1712538610885" duration="125000" />
-      <workItem from="1712540374541" duration="123000" />
-      <workItem from="1712545031876" duration="296000" />
-      <workItem from="1712692123616" duration="1057000" />
-      <workItem from="1712695268484" duration="885000" />
-      <workItem from="1712780561945" duration="1839000" />
-      <workItem from="1712786167818" duration="407000" />
-      <workItem from="1712787198629" duration="722000" />
-      <workItem from="1712795423206" duration="194000" />
     </task>
     <task id="LOCAL-00001" summary="Update the way of generate ID">
       <option name="closed" value="true" />

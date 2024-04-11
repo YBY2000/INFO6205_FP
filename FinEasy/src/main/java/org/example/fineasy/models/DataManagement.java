@@ -3,11 +3,11 @@ package org.example.fineasy.models;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
+import org.example.fineasy.entity.OperationRecord;
 import org.example.fineasy.utils.ShowDialog;
 import org.example.fineasy.utils.TransactionNotFoundException;
 
 import java.time.LocalDate;
-import java.util.Arrays;
 
 
 import static org.example.fineasy.entity.OperationType.ADD;
@@ -122,7 +122,6 @@ public class DataManagement {
      * @throws TransactionNotFoundException If there's an issue reverting the last operation, such as not finding the transaction to undo delete.
      */
     public void undoLastAction() throws TransactionNotFoundException {
-        System.out.println("------------"+undoStack);
         if (!undoStack.isEmpty()) {
             OperationRecord lastOperation = undoStack.pop();
             Transaction transaction = lastOperation.transaction();
@@ -135,11 +134,9 @@ public class DataManagement {
                 }
                 case DELETE -> {
                     // the latest operation is DELETE, then add the latest deleted transaction
-                    System.out.println(lastOperation.transactionPosition());
                     transactionList.add(lastOperation.transactionPosition(), transaction);
                     transactionsObservable.add(transaction);
                     bst.insert(transaction);
-//                    System.out.println(transactionList);
                 }
                 // TODO: Handle EDIT case as needed
             }

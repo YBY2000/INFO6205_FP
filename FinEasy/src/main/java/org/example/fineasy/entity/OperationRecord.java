@@ -1,6 +1,7 @@
-package org.example.fineasy.models;
+package org.example.fineasy.entity;
 
 import org.example.fineasy.entity.OperationType;
+import org.example.fineasy.models.Transaction;
 
 
 /**

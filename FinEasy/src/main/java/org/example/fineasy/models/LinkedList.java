@@ -1,5 +1,7 @@
 package org.example.fineasy.models;
 
+import org.example.fineasy.service.ListInterface;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.NoSuchElementException;
  * Represents a generic linked list implementation where nodes are linked together to form a sequence.
  * @param <T> The type of elements stored in the linked list.
  */
-public class LinkedList<T> implements Iterable<T> {
+public class LinkedList<T> implements Iterable<T>, ListInterface<T> {
     private Node firstNode;       // Reference to first node
     private int numberOfEntries;
 
