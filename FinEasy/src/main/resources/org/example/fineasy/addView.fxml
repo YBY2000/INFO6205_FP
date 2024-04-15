@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.collections.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.fineasy.controllers.AddController">
+<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.fineasy.controllers.AddController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
-    <VBox alignment="CENTER" spacing="20.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <Label style="-fx-font-size: 24px;" text="FinEasy"/>
-        <TextField fx:id="textAmount" prefWidth="360.0" promptText="Amount"/>
-        <HBox alignment="CENTER" spacing="10.0">
-            <ToggleButton fx:id="toggleFood" text="Food"/>
-            <ToggleButton fx:id="toggleEducation" text="Education"/>
-            <ToggleButton fx:id="toggleTransportation" text="Transportation"/>
-            <ToggleButton fx:id="toggleEntertainment" text="Entertainment"/>
-            <ToggleButton fx:id="toggleDaily" text="Daily"/>
-            <ToggleButton fx:id="toggleGift" text="Gift"/>
+    <VBox alignment="CENTER" spacing="20.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Label text="Add Transaction" styleClass="title-label"/>
+        <TextField fx:id="textAmount" promptText="Amount" styleClass="input-field"/>
+        <HBox alignment="CENTER" spacing="10.0" styleClass="category-box">
+            <ToggleButton fx:id="toggleFood" text="Food" styleClass="category-toggle"/>
+            <ToggleButton fx:id="toggleEducation" text="Education" styleClass="category-toggle"/>
+            <ToggleButton fx:id="toggleTransportation" text="Transportation" styleClass="category-toggle"/>
+            <ToggleButton fx:id="toggleEntertainment" text="Entertainment" styleClass="category-toggle"/>
+            <ToggleButton fx:id="toggleDaily" text="Daily" styleClass="category-toggle"/>
+            <ToggleButton fx:id="toggleGift" text="Gift" styleClass="category-toggle"/>
         </HBox>
         <HBox alignment="CENTER" spacing="10.0">
-            <Label text="Type:"/>
-            <ChoiceBox fx:id="choiceType" prefWidth="200.0">
+            <Label text="Type:" styleClass="input-label"/>
+            <ChoiceBox fx:id="choiceType" styleClass="input-field">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Expense"/>
@@ -35,20 +32,78 @@
             </ChoiceBox>
         </HBox>
         <HBox alignment="CENTER" spacing="10.0">
-            <Label text="Comment:"/>
-            <TextField fx:id="textComment" prefWidth="200.0"/>
+            <Label text="Comment:" styleClass="input-label"/>
+            <TextField fx:id="textComment" styleClass="input-field"/>
         </HBox>
         <HBox alignment="CENTER" spacing="10.0">
-            <Label text="Date:"/>
-            <DatePicker fx:id="datePicker" prefWidth="200.0"/>
+            <Label text="Date:" styleClass="input-label"/>
+            <DatePicker fx:id="datePicker" styleClass="input-field"/>
         </HBox>
-        <HBox alignment="TOP_CENTER" spacing="30.0">
-            <Button fx:id="btnSave" onAction="#handleSaveAction"
-                    style="-fx-background-color: orange; -fx-border-color: black; -fx-pref-width: 100px;"
-                    text="SAVE"/>
-            <Button fx:id="btnCancel" onAction="#navigateToMainView"
-                    style="-fx-background-color: lightgrey; -fx-border-color: black; -fx-pref-width: 100px;"
-                    text="CANCEL"/>
+        <HBox alignment="CENTER" spacing="30.0">
+            <Button fx:id="btnSave" onAction="#handleSaveAction" text="SAVE" styleClass="action-button"/>
+            <Button fx:id="btnCancel" onAction="#navigateToMainView" text="CANCEL" styleClass="cancel-button"/>
         </HBox>
     </VBox>
+    <style>
+        .title-label {
+        -fx-font-size: 24px;
+        -fx-text-fill: #333333;
+        -fx-font-weight: bold;
+        }
+
+        .input-field {
+        -fx-pref-width: 200.0;
+        -fx-border-radius: 5;
+        -fx-border-color: #cccccc;
+        -fx-padding: 5;
+        }
+
+        .input-label {
+        -fx-text-fill: #333333;
+        -fx-font-size: 14px;
+        }
+
+        .category-box {
+        -fx-spacing: 5;
+        }
+
+        .category-toggle {
+        -fx-background-color: #e4e4e4;
+        -fx-text-fill: #333333;
+        -fx-border-color: #cccccc;
+        -fx-padding: 5 10;
+        -fx-font-size: 12px;
+        }
+
+        .category-toggle:selected {
+        -fx-background-color: #5a8f5a;
+        -fx-text-fill: white;
+        }
+
+        .action-button {
+        -fx-background-color: #5a8f5a;
+        -fx-text-fill: white;
+        -fx-font-weight: bold;
+        -fx-background-radius: 5;
+        -fx-padding: 5 15 5 15;
+        -fx-pref-width: 100px;
+        }
+
+        .action-button:hover {
+        -fx-background-color: #4a7f4a;
+        }
+
+        .cancel-button {
+        -fx-background-color: lightgrey;
+        -fx-text-fill: black;
+        -fx-font-weight: bold;
+        -fx-background-radius: 5;
+        -fx-padding: 5 15 5 15;
+        -fx-pref-width: 100px;
+        }
+
+        .cancel-button:hover {
+        -fx-background-color: darkgrey;
+        }
+    </style>
 </AnchorPane>

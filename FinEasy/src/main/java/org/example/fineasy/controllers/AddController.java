@@ -3,18 +3,17 @@ package org.example.fineasy.controllers;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.example.fineasy.utils.ShowDialog;
 import org.example.fineasy.models.DataManagement;
 import org.example.fineasy.models.Transaction;
 
-import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
+import java.util.ResourceBundle;
 
 import static org.example.fineasy.utils.LoadNewScene.loadScene;
 
@@ -22,7 +21,7 @@ import static org.example.fineasy.utils.LoadNewScene.loadScene;
  * The controller for the add transaction page
  * include type selection, fill in amount, comment, date pick
  */
-public class AddController {
+public class AddController implements Initializable {
     public Button btnSave;
     public Button btnCancel;
     @FXML
@@ -129,4 +128,9 @@ public class AddController {
 
     private final ObservableList<Transaction> transactionsObservable = DataManagement.getInstance().getTransactionsObservable();
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Set the DatePicker to the current date
+        datePicker.setValue(LocalDate.now());
+    }
 }
