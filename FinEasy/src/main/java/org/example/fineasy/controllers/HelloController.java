@@ -1,12 +1,18 @@
 package org.example.fineasy.controllers;
 
+import java.io.IOException;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.example.fineasy.models.SortingServiceImpl;
 import org.example.fineasy.service.SortingService;
 import org.example.fineasy.utils.ShowDialog;
@@ -18,6 +24,8 @@ import org.example.fineasy.models.BinarySearchTree;
 import java.time.LocalDate;
 import java.util.Comparator;
 
+import static org.example.fineasy.utils.AppConstants.PREF_HEIGHT;
+import static org.example.fineasy.utils.AppConstants.PREF_WIDTH;
 import static org.example.fineasy.utils.LoadNewScene.loadScene;
 
 /**
@@ -56,8 +64,7 @@ public class HelloController {
 
     /**
      * Initialize the main view
-     */
-    public void initialize() {
+     */public void initialize() {
         sortingService = new SortingServiceImpl<>();
         binarySearchTree = DataManagement.getInstance().getBinarySearchTree();
 
@@ -66,10 +73,13 @@ public class HelloController {
 
         setupSortComboBox();
 
+        // Set "Date" as the default value for the sortComboBox
+        sortComboBox.setValue("Date"); // This will make "Date" the default selected option
+
         // Bind TableView to observable list
         updateTransactionsView();
-
     } // end initialize
+
 
 
     /**
@@ -98,8 +108,29 @@ public class HelloController {
      */
     @FXML
     public void handleAddButtonClick() {
-        loadScene("/org/example/fineasy/addView.fxml", addButton);
-    } // end handleAddButtonClick
+        try {
+            // Load the FXML for the Add Transaction popup
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/fineasy/addView.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the popup, make it modal
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Add Transaction");
+            stage.setScene(new Scene(root, PREF_WIDTH-200, PREF_HEIGHT-400));
+            stage.setResizable(false);
+
+            // Get the controller for the Add Transaction page
+            AddController addController = loader.getController();
+            addController.setStage(stage);  // Ensure the controller can close the stage
+
+            // Show the modal and wait for it to close
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+            ShowDialog.showAlert("Error", "Failed to load the Add Transaction page.", Alert.AlertType.ERROR);
+        }
+    }
 
 
     /**
@@ -203,7 +234,7 @@ public class HelloController {
 
 
     @FXML
-    public void handleSearchButtonAction(ActionEvent event) {
+    public void handleSearchButtonAction() {
         String keyword = searchTextField.getText();
         if (!keyword.isEmpty()) {
             List<Transaction> searchResult = binarySearchTree.searchByKeyword(keyword);

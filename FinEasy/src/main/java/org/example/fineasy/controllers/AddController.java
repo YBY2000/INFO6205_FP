@@ -15,7 +15,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import static org.example.fineasy.utils.LoadNewScene.loadScene;
 
 /**
  * The controller for the add transaction page
@@ -41,11 +40,22 @@ public class AddController implements Initializable {
     @FXML private ToggleButton toggleGift;
     private ToggleGroup categoryToggleGroup;
 
+
+    private Stage stage;
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
     /**
-     * Initialize the toggle group for inputting data
+     * Initialize toggle group for inputting data
+     * Initialize date picker with current date
      */
-    @FXML
-    public void initialize() {
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        datePicker.setValue(LocalDate.now()); // Set the DatePicker to the current date
+        choiceType.setValue("Expense"); // This will make "Date" the default selected option
+
         categoryToggleGroup = new ToggleGroup();
         toggleFood.setToggleGroup(categoryToggleGroup);
         toggleEducation.setToggleGroup(categoryToggleGroup);
@@ -64,13 +74,20 @@ public class AddController implements Initializable {
         try {
             int id = generateTransactionId();
             String type = choiceType.getValue();
-            double amount = Double.parseDouble(textAmount.getText().trim()); // trim() to remove leading/trailing spaces
+            double amount = Double.parseDouble(textAmount.getText().trim()); // Ensure valid number format
             Transaction transaction = getTransaction(id, type, amount);
+
             DataManagement.getInstance().addTransaction(transaction);
 
-            navigateToMainView(event);
+            // Assuming save is successful, close the stage
+            if (stage != null) {
+                stage.close();
+            } else {
+                closeStage(event); // Fallback to close stage in case 'stage' is not set
+            }
+        } catch (NumberFormatException e) {
+            ShowDialog.showAlert("Error", "Invalid amount. Please enter a valid number.", Alert.AlertType.ERROR);
         } catch (Exception e) {
-            // Broader exception handling
             ShowDialog.showAlert("Error", "Error saving transaction: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
@@ -97,7 +114,7 @@ public class AddController implements Initializable {
 
     @FXML
     private void navigateToMainView(ActionEvent event) {
-        loadScene("/org/example/fineasy/mainView.fxml", btnSave);
+        stage.close();
     }
 
 
@@ -112,25 +129,16 @@ public class AddController implements Initializable {
      * @return The generated id
      */
     private int generateTransactionId() {
-        int maxId = 0;
-
-        // go through observable list and find the largest id
-        for (Transaction transaction : transactionsObservable) {
-            int currentId = transaction.getId();
-
-            if (currentId > maxId) {
-                maxId = currentId;
-            }
-        }
+        // This needs to be synchronized with actual data management strategies
+        int maxId = transactionsObservable.stream()
+                .mapToInt(Transaction::getId)
+                .max()
+                .orElse(0);
 
         return maxId + 1;
     }
 
+
     private final ObservableList<Transaction> transactionsObservable = DataManagement.getInstance().getTransactionsObservable();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // Set the DatePicker to the current date
-        datePicker.setValue(LocalDate.now());
-    }
 }
