@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="713fe976-1346-4490-94f0-ca43670c9c31" name="更改" comment="Add setupSortComboBox in HelloController">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/AddController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/AddController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/addView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/addView.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/mainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/mainView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/VisualizationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/fineasy/controllers/VisualizationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/visualView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/fineasy/visualView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
