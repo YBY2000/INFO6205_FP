@@ -69,38 +69,61 @@ public class BinarySearchTree<T extends Transaction> implements BSTInterface<T> 
     }
 
     /**
-     * Recursively deletes a node from the binary search tree.
+     * Recursively deletes a node with a specified ID from the binary search tree.
+     * This method works by finding the node to delete and then adjusting the tree
+     * to maintain the binary search tree properties after removal.
      *
-     * @param root      The current root of the subtree.
-     * @param id        The ID of the element to delete.
-     * @param isDeleted An array to indicate whether the element is deleted.
-     * @return The new or updated root of the subtree.
+     * @param root      The current root of the subtree in which to perform the deletion.
+     * @param id        The ID of the element to be deleted.
+     * @param isDeleted An array to capture whether the deletion was successful.
+     *                  This is particularly useful for signaling when the node has been found and deleted.
+     * @return The new or updated root of the subtree after the deletion. If the node to delete is not found,
+     *         the method returns the unchanged subtree root.
      */
     private BSTNode<T> deleteRec(BSTNode<T> root, int id, boolean[] isDeleted) {
         if (root == null) {
-            return null;
+            return null; // Return null if the root is empty, indicating no node to delete.
         }
         int rootId = root.data.getId();
+
+        // Search for the node to delete
         if (id < rootId) {
-            root.left = deleteRec(root.left, id, isDeleted);
+            root.left = deleteRec(root.left, id, isDeleted); // Recurse into the left subtree
         } else if (id > rootId) {
-            root.right = deleteRec(root.right, id, isDeleted);
+            root.right = deleteRec(root.right, id, isDeleted); // Recurse into the right subtree
         } else {
+            // Node found, set deletion flag
             isDeleted[0] = true;
+
+            // Handle the case where the node has two children
+            if (root.left != null && root.right != null) {
+                // Find the smallest node in the right subtree, which is the leftmost node
+                T minData = minValue(root.right);
+                // Replace the current node's data with the minimum node's data
+                root.data = minData;
+                // Delete the node that had its data copied
+                root.right = deleteRec(root.right, minData.getId(), new boolean[1]);
+            } else {
+                // Handle the case where the node has one or no children
+                root = (root.left != null) ? root.left : root.right;
+            }
         }
-        return root;
+        return root; // Return the possibly updated root of the subtree
     }
 
     /**
-     * Finds the node with the minimum value in the subtree.
-     * @param root The root of the subtree.
-     * @return The minimum value node within the subtree.
+     * Finds the node with the minimum value in the subtree, which is always the leftmost node.
+     * This method is typically used during the deletion of a node with two children to find a successor value.
+     *
+     * @param node The root of the subtree from which to find the minimum value.
+     * @return The minimum value found in the subtree, specifically used when replacing a deleted node's value
+     *         with the minimum value from its right subtree.
      */
-    private T minValue(BSTNode<T> root) {
-        T minv = root.data;
-        while (root.left != null) {
-            minv = root.left.data;
-            root = root.left;
+    private T minValue(BSTNode<T> node) {
+        T minv = node.data;
+        while (node.left != null) {
+            node = node.left;
+            minv = node.data;
         }
         return minv;
     }
