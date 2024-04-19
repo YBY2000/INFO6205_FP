@@ -9,7 +9,7 @@ Opening the Project:
     1. Open IntelliJ IDEA.
     2. Select 'Open' from the 'File' menu.
     3. Navigate to the location of the downloaded FinEasy project folder.
-    4. Select the project folder and click 'OK'.
+    4. Select the project folder(FinEasy) and click 'OK'.
     5. IntelliJ IDEA will import the project and set it up.
 
 Running the Application in IntelliJ:
