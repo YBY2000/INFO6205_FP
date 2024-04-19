@@ -52,6 +52,6 @@ General Usage Notes:
     • Ensure all fields are correctly filled before saving a transaction to avoid errors.
 
 Troubleshooting:
-    • If the application doesn't compile, verify that the JDK is set up correctly in 'File' > 'Project Structure' > 'Project'.
+    • If the application doesn't compile, verify that the JDK(21 Oracle OpenJDK version 21.0.1-aarch64) is set up correctly in 'File' > 'Project Structure' > 'Project'.
     • If the project does not build, check the 'Project Structure' for any misconfiguration of SDKs or dependencies.
     • If the application does not run, ensure that the 'HelloApplication' class is correctly set as the entry point.
