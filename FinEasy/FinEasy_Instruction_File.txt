@@ -2,7 +2,7 @@
 FinEasy Application IntelliJ IDEA Instruction File
 
 Preparation:
-    1. Ensure you have Java 8 or later and IntelliJ IDEA installed on your machine.
+    1. Ensure you have Java 8 or later and IntelliJ IDEA installed on your machine(Preferably choose JDK 21 Oracle OpenJDK version 21.0.1-aarch64).
     2. Download and unzip the FinEasy project to your local drive.
 
 Opening the Project:
