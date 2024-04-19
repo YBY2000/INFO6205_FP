@@ -14,7 +14,7 @@ Opening the Project:
 
 Running the Application in IntelliJ:
     1. After the project setup is complete, locate the src directory in the Project panel on the left.
-    2. Navigate to the HelloApplication class which contains the main method.
+    2. Navigate to the HelloApplication class(FinEasy/src/main/java/org/example/fineasy/HelloApplication.java) which contains the main method.
     3. Right-click on the file and select 'Run Main.main()' to start the application.
     4. The FinEasy GUI should now be open on your desktop.
 
