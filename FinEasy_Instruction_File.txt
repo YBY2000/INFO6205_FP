@@ -1,0 +1,57 @@
+
+FinEasy Application IntelliJ IDEA Instruction File
+
+Preparation:
+    1. Ensure you have Java 8 or later and IntelliJ IDEA installed on your machine.
+    2. Download and unzip the FinEasy project to your local drive.
+
+Opening the Project:
+    1. Open IntelliJ IDEA.
+    2. Select 'Open' from the 'File' menu.
+    3. Navigate to the location of the downloaded FinEasy project folder.
+    4. Select the project folder(FinEasy) and click 'OK'.
+    5. IntelliJ IDEA will import the project and set it up.
+
+Running the Application in IntelliJ:
+    1. After the project setup is complete, locate the src directory in the Project panel on the left.
+    2. Navigate to the HelloApplication class(FinEasy/src/main/java/org/example/fineasy/HelloApplication.java) which contains the main method.
+    3. Right-click on the file and select 'Run Main.main()' to start the application.
+    4. The FinEasy GUI should now be open on your desktop.
+
+Testing Functionalities:
+Add Transaction:
+    1. Click on the 'Add' button at the bottom of the main interface.
+    2. Fill in the details of the transaction (amount, category, type, comment, and date).
+    3. Click the 'Save' button to record the transaction.
+    4. Verify the transaction appears in the main transaction list.
+
+Delete Transaction:
+    1. Select a transaction from the main transaction list.
+    2. Click the 'Delete' button.
+    3. Confirm the deletion in the popup dialog.
+    4. Ensure the transaction is removed from the list.
+
+Undo Functionality:
+    1. After adding or deleting a transaction, click the 'Undo' button.
+    2. Verify that the last action (addition or deletion) has been reversed.
+
+Sorting Transactions:
+    1. Use the 'Sort By' dropdown menu to select a sorting criterion (Amount, Date, Type, or Category).
+    2. Verify that the transactions are reordered according to the selected criterion.
+
+Search Functionality:
+    1. Enter a keyword in the search bar at the top (Type/Category/Comment).
+    2. Click the 'Search' button.
+    3. Review the filtered transactions to ensure they match the search criteria.
+
+Visualization:
+    1. Click the 'Visualization' button.
+    2. Inspect the pie chart to ensure it accurately represents the distribution of transactions based on the selected category.
+
+General Usage Notes:
+    • Ensure all fields are correctly filled before saving a transaction to avoid errors.
+
+Troubleshooting:
+    • If the application doesn't compile, verify that the JDK(21 Oracle OpenJDK version 21.0.1-aarch64) is set up correctly in 'File' > 'Project Structure' > 'Project'.
+    • If the project does not build, check the 'Project Structure' for any misconfiguration of SDKs or dependencies.
+    • If the application does not run, ensure that the 'HelloApplication' class is correctly set as the entry point.
